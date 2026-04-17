@@ -1,0 +1,17 @@
+{
+  "name": "@ndnanalytics/lifecycle-worker",
+  "version": "1.0.0",
+  "description": "NDN IPFS Chain — Lifecycle tiering worker",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "pg": "^8.12.0",
+    "pino": "^9.2.0",
+    "axios": "^1.6.0"
+  }
+}

@@ -2,6 +2,7 @@ import { Server as TusServer } from 'tus-node-server';
 import { FileStore } from '@tus/file-store';
 import { createHash, randomBytes, createCipheriv } from 'node:crypto';
 import { Readable } from 'node:stream';
+import fs from 'node:fs';
 
 export default async function uploadRoutes(app) {
   app.addHook('onRequest', app.authenticate);
@@ -43,14 +44,61 @@ export default async function uploadRoutes(app) {
   });
 
   // Resumable uploads (tus 1.0.0). Larger than 1 GiB, or mobile/flaky networks.
+  const store = new FileStore({ directory: process.env.TUS_TMP ?? '/tmp/ndn-tus' });
   const tus = new TusServer({
     path: '/tus',
-    datastore: new FileStore({ directory: process.env.TUS_TMP ?? '/tmp/ndn-tus' }),
+    datastore: store,
   });
+
   tus.on('POST_FINISH', async (req, res, upload) => {
-    // After the upload completes, ingest into IPFS and create a pin record.
-    // Implementation detail: stream the assembled file into cluster.add().
-    app.log.info({ uploadId: upload.id, size: upload.size }, 'tus upload complete');
+    try {
+      const { metadata, id, size } = upload;
+      const tenantId = metadata.tenant_id;
+      if (!tenantId) {
+        app.log.error({ uploadId: id }, 'tus upload finished without tenant_id metadata');
+        return;
+      }
+
+      const encryption = metadata.encryption === 'true';
+      const filePath = store.getPath(id);
+      let fileStream = fs.createReadStream(filePath);
+
+      let keyMaterial, iv, keyId;
+      if (encryption) {
+        keyMaterial = randomBytes(32);
+        iv = randomBytes(12);
+        const cipher = createCipheriv('aes-256-gcm', keyMaterial, iv);
+        fileStream = fileStream.pipe(cipher);
+        keyId = await app.db.keys.store(tenantId, keyMaterial, iv);
+      }
+
+      const cid = await app.cluster.add(fileStream);
+      await app.cluster.pin(cid, {
+        replication: Number(metadata.replication ?? 3),
+        region: metadata.region,
+      });
+
+      await app.db.pins.create({
+        tenant: tenantId,
+        cid,
+        name: metadata.name,
+        region: metadata.region,
+        replication: Number(metadata.replication ?? 3),
+        encryption,
+        keyId,
+        lifecycle: metadata.lifecycle,
+        meta: metadata.meta ? JSON.parse(metadata.meta) : undefined,
+        size,
+        status: 'pinned',
+        created: new Date(),
+      });
+
+      await fs.promises.unlink(filePath);
+      app.log.info({ uploadId: id, cid }, 'tus upload successfully ingested and pinned');
+    } catch (err) {
+      app.log.error({ err, uploadId: upload.id }, 'tus POST_FINISH pipeline failed');
+    }
   });
+
   app.all('/tus/*', (req, reply) => tus.handle(req.raw, reply.raw));
 }
