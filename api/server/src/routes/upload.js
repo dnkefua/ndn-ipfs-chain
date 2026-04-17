@@ -1,4 +1,4 @@
-import { Server as TusServer } from 'tus-node-server';
+import { Server as TusServer } from '@tus/server';
 import { FileStore } from '@tus/file-store';
 import { createHash, randomBytes, createCipheriv } from 'node:crypto';
 import { Readable } from 'node:stream';

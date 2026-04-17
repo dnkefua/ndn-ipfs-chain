@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
@@ -23,6 +24,7 @@ import { dbPlugin } from './db/index.js';
 import { meteringPlugin } from './plugins/metering.js';
 import authRoutes from './routes/auth.js';
 import billingRoutes from './routes/billing.js';
+import modelRoutes from './routes/models.js';
 
 const app = Fastify({
   logger: { level: process.env.LOG_LEVEL ?? 'info', redact: ['req.headers.authorization', 'req.headers["x-api-key"]'] },
@@ -41,7 +43,7 @@ await app.register(jwt, { secret: process.env.JWT_SECRET ?? 'dev-secret-change-m
 await app.register(multipart, { limits: { fileSize: 1024 * 1024 * 1024 } });
 
 // OpenAPI docs at /docs
-const openapi = loadYaml(readFileSync(new URL('../../openapi.yaml', import.meta.url), 'utf8'));
+const openapi = loadYaml(readFileSync(new URL('../openapi.yaml', import.meta.url), 'utf8'));
 await app.register(swagger, { mode: 'static', specification: { document: openapi } });
 await app.register(swaggerUi, { routePrefix: '/docs', uiConfig: { deepLinking: true } });
 
@@ -62,6 +64,7 @@ app.register(encryptionRoutes, { prefix: '/v1/encryption' });
 app.register(triggersRoutes,   { prefix: '/v1/triggers' });
 app.register(analyticsRoutes,  { prefix: '/v1/analytics' });
 app.register(teamsRoutes,      { prefix: '/v1/teams' });
+app.register(modelRoutes,      { prefix: '/v1/models' });
 
 const port = Number(process.env.PORT ?? 3000);
 await app.listen({ port, host: '0.0.0.0' });

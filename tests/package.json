@@ -1,0 +1,16 @@
+{
+  "name": "@ndnipfs/tests",
+  "version": "1.0.0",
+  "description": "Integration tests for NDN IPFS Chain",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "axios": "^1.6.0",
+    "vitest": "^1.0.0"
+  }
+}

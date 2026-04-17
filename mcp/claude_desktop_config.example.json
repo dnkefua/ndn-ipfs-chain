@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ndn-ipfs": {
+      "command": "node",
+      "args": ["/absolute/path/to/ndn-ipfs-chain/mcp/dist/index.js"],
+      "env": {
+        "NDN_API_URL": "http://localhost:3000/v1",
+        "NDN_API_KEY": "ndn_live_your_api_key_here"
+      }
+    }
+  }
+}

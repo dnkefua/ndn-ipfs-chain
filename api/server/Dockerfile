@@ -1,9 +1,9 @@
 FROM node:20-alpine AS build
 WORKDIR /app
-COPY package.json ./
+COPY api/server/package.json ./
 RUN npm install --omit=dev
-COPY src ./src
-COPY ../openapi.yaml ../openapi.yaml
+COPY api/server/src ./src
+COPY api/openapi.yaml ./openapi.yaml
 
 FROM node:20-alpine
 WORKDIR /app
