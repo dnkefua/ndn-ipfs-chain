@@ -56,6 +56,19 @@ export interface UsageSnapshot {
   storage: number;
 }
 
+export interface Model {
+  id: string;
+  tenant_id: string;
+  name: string;
+  version: string;
+  root_cid: string;
+  shard_map: Record<string, string>;
+  model_card: Record<string, unknown>;
+  status: 'importing' | 'ready' | 'failed';
+  created_at: string;
+  updated_at: string;
+}
+
 export const api = {
   auth: {
     signup: (email: string, password: string, orgName?: string) =>
@@ -86,6 +99,22 @@ export const api = {
   analytics: {
     usage: (days = 30) => client.get(`/analytics/usage?days=${days}`),
     replicationHealth: () => client.get('/analytics/replication-health'),
+  },
+  models: {
+    list: () => client.get<Model[]>('/models'),
+    get: (name: string, version: string) =>
+      client.get<Model>(`/models/${encodeURIComponent(name)}/${encodeURIComponent(version)}`),
+    create: (body: {
+      name: string;
+      version: string;
+      root_cid: string;
+      shard_map?: Record<string, string>;
+      model_card?: Record<string, unknown>;
+    }) => client.post<Model>('/models', body),
+  },
+  health: {
+    // Uses base axios instance (no /v1 prefix) for the root healthz endpoint.
+    check: () => axios.get(`${API_URL}/healthz`).then((r) => r.data),
   },
 };
 
