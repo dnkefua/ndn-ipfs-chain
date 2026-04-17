@@ -1,0 +1,16 @@
+{
+  "name": "@ndnanalytics/trigger-worker",
+  "version": "1.0.0",
+  "description": "Subscribes to smart-contract events across chains and auto-pins referenced CIDs",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": { "start": "node src/index.js", "dev": "node --watch src/index.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "ethers": "^6.13.0",
+    "@solana/web3.js": "^1.95.0",
+    "pg": "^8.12.0",
+    "pino": "^9.2.0",
+    "@ndnanalytics/ipfs": "^1.0.0"
+  }
+}

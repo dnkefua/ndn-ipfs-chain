@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  kubo:
+    image: ipfs/kubo:v0.28.0
+    ports: ["5001:5001", "8080:8080"]
+    volumes: ["kubo-data:/data/ipfs"]
+    environment:
+      IPFS_PROFILE: server
+
+  cluster:
+    image: ipfs/ipfs-cluster:v1.1.1
+    depends_on: [kubo]
+    ports: ["9094:9094", "9096:9096"]
+    environment:
+      CLUSTER_PEERNAME: ndn-cluster-0
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/kubo/tcp/5001
+      CLUSTER_CRDT_TRUSTEDPEERS: "*"
+      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094
+      CLUSTER_MONITORPINGINTERVAL: 2s
+    volumes: ["cluster-data:/data/ipfs-cluster"]
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ndn
+      POSTGRES_PASSWORD: ndn
+      POSTGRES_DB: ndnipfs
+    ports: ["5432:5432"]
+    volumes: ["pg-data:/var/lib/postgresql/data"]
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  api:
+    build: ../api/server
+    depends_on: [kubo, cluster, postgres, redis]
+    ports: ["3000:3000"]
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      KUBO_API_URL: http://kubo:5001
+      CLUSTER_API_URL: http://cluster:9094
+      DATABASE_URL: postgres://ndn:ndn@postgres:5432/ndnipfs
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev-secret-change-me
+
+volumes:
+  kubo-data:
+  cluster-data:
+  pg-data:

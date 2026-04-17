@@ -1,0 +1,16 @@
+{
+  "name": "@ndnanalytics/cli",
+  "version": "1.0.0",
+  "description": "NDN IPFS Chain — command-line tool",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": { "ndn": "bin/ndn.js" },
+  "files": ["bin"],
+  "dependencies": {
+    "@ndnanalytics/ipfs": "^1.0.0",
+    "commander": "^12.1.0",
+    "ora": "^8.0.1",
+    "chalk": "^5.3.0"
+  },
+  "engines": { "node": ">=20" }
+}

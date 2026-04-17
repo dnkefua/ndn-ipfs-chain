@@ -1,0 +1,40 @@
+{
+  "name": "@ndnanalytics/ipfs",
+  "version": "1.0.0",
+  "description": "NDN IPFS Chain — the easiest way to build on IPFS.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./encryption": {
+      "types": "./dist/encryption.d.ts",
+      "import": "./dist/encryption.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts src/encryption.ts --format esm,cjs --dts --clean",
+    "test":  "vitest run",
+    "lint":  "eslint src"
+  },
+  "keywords": ["ipfs", "filecoin", "web3", "storage", "pinning", "decentralized"],
+  "dependencies": {
+    "multiformats": "^13.1.0",
+    "undici":       "^6.19.0"
+  },
+  "devDependencies": {
+    "tsup":      "^8.1.0",
+    "typescript":"^5.4.5",
+    "vitest":    "^1.6.0"
+  },
+  "repository": "https://github.com/ndn-analytics/ipfs-chain",
+  "homepage":   "https://docs.ndnipfs.com",
+  "bugs":       "https://github.com/ndn-analytics/ipfs-chain/issues"
+}

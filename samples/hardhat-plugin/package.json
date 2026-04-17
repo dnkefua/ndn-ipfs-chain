@@ -1,0 +1,13 @@
+{
+  "name": "hardhat-ndn-ipfs",
+  "version": "0.1.0",
+  "description": "Hardhat plugin: pin metadata/artifacts to NDN IPFS Chain",
+  "main": "src/index.js",
+  "type": "module",
+  "peerDependencies": {
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@ndnanalytics/ipfs": "^1.0.0"
+  }
+}

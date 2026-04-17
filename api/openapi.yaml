@@ -1,0 +1,417 @@
+openapi: 3.1.0
+info:
+  title: NDN IPFS Chain API
+  version: 1.0.0
+  description: |
+    Enterprise-grade IPFS pinning, retrieval, and lifecycle API.
+    Compatible with the IPFS Pinning Services Specification v1.0, with
+    first-class extensions for encryption, lifecycle, smart-contract triggers,
+    analytics, and teams.
+  contact:
+    name: NDN Analytics
+    url: https://www.ndnanalytics.com
+    email: support@ndnanalytics.com
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: https://api.ndnipfs.com/v1
+    description: Production (global anycast)
+  - url: https://api-eu.ndnipfs.com/v1
+    description: EU residency (GDPR-locked)
+  - url: https://api.sandbox.ndnipfs.com/v1
+    description: Sandbox (no auth, ephemeral)
+
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+  - SIWEAuth: []
+
+tags:
+  - name: Pins
+    description: Pinning Services API v1.0 compatible endpoints
+  - name: Upload
+    description: File ingestion (tus, multipart, direct)
+  - name: Gateway
+    description: Retrieval and CDN controls
+  - name: Lifecycle
+    description: Tiered-storage policies
+  - name: Encryption
+    description: Client-side key management
+  - name: Triggers
+    description: Smart-contract event subscriptions
+  - name: Analytics
+    description: Usage, bandwidth, and replication metrics
+  - name: Teams
+    description: Org, team, and RBAC management
+
+paths:
+  /pins:
+    get:
+      tags: [Pins]
+      summary: List pins
+      parameters:
+        - { name: cid,    in: query, schema: { type: string } }
+        - { name: name,   in: query, schema: { type: string } }
+        - { name: status, in: query, schema: { $ref: '#/components/schemas/PinStatus' } }
+        - { name: limit,  in: query, schema: { type: integer, default: 100, maximum: 1000 } }
+        - { name: cursor, in: query, schema: { type: string } }
+      responses:
+        '200':
+          description: Page of pins
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PinsPage' }
+    post:
+      tags: [Pins]
+      summary: Pin a CID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PinRequest' }
+      responses:
+        '202':
+          description: Pin queued
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Pin' }
+
+  /pins/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [Pins]
+      summary: Get pin status
+      responses:
+        '200':
+          description: Pin
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Pin' }
+    delete:
+      tags: [Pins]
+      summary: Unpin
+      responses:
+        '204': { description: Unpinned }
+
+  /upload:
+    post:
+      tags: [Upload]
+      summary: Direct upload (≤ 1 GiB). Use /upload/tus for larger files.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:         { type: string, format: binary }
+                name:         { type: string }
+                region:       { $ref: '#/components/schemas/Region' }
+                replication:  { type: integer, minimum: 1, maximum: 9 }
+                encryption:   { type: boolean, default: false }
+                lifecycle:    { type: string, description: Lifecycle policy ID or inline rule }
+                meta:         { type: object, additionalProperties: { type: string } }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Pin' }
+
+  /upload/tus:
+    post:
+      tags: [Upload]
+      summary: Initiate a tus resumable upload
+      description: Implements tus 1.0.0. See https://tus.io.
+      responses:
+        '201': { description: Upload created (Location header returns tus URL) }
+
+  /gateway/{cid}:
+    parameters:
+      - { name: cid, in: path, required: true, schema: { type: string } }
+      - { name: verify, in: query, schema: { type: boolean, default: false } }
+      - { name: range,  in: header, schema: { type: string } }
+    get:
+      tags: [Gateway]
+      summary: Trustless retrieval (re-hashed at edge when verify=true)
+      security: []
+      responses:
+        '200':
+          description: Content (returns X-Ipfs-Verified header when verify=true)
+
+  /lifecycle/policies:
+    get:
+      tags: [Lifecycle]
+      summary: List lifecycle policies
+      responses:
+        '200':
+          description: Policies
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/LifecyclePolicy' }
+    post:
+      tags: [Lifecycle]
+      summary: Create a lifecycle policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LifecyclePolicy' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LifecyclePolicy' }
+
+  /encryption/keys:
+    get:
+      tags: [Encryption]
+      summary: List envelope keys (never returns key material)
+      responses:
+        '200':
+          description: Keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/EnvelopeKey' }
+    post:
+      tags: [Encryption]
+      summary: Create an envelope key (returns material ONCE)
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EnvelopeKeyCreated' }
+
+  /encryption/keys/{id}/shred:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      tags: [Encryption]
+      summary: Crypto-shred (destroy key → content permanently unreadable)
+      responses:
+        '200':
+          description: Shredded (includes on-chain anchor proof)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ShredProof' }
+
+  /triggers:
+    get:
+      tags: [Triggers]
+      summary: List smart-contract triggers
+      responses:
+        '200':
+          description: Triggers
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Trigger' }
+    post:
+      tags: [Triggers]
+      summary: Subscribe to a contract event and auto-pin referenced CIDs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Trigger' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Trigger' }
+
+  /analytics/usage:
+    get:
+      tags: [Analytics]
+      summary: Bandwidth, storage, and request metrics
+      parameters:
+        - { name: from, in: query, schema: { type: string, format: date-time } }
+        - { name: to,   in: query, schema: { type: string, format: date-time } }
+        - { name: granularity, in: query, schema: { type: string, enum: [hour, day, month] } }
+      responses:
+        '200':
+          description: Metrics
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UsageReport' }
+
+  /teams:
+    get:
+      tags: [Teams]
+      summary: List teams in current org
+      responses:
+        '200':
+          description: Teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Team' }
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    SIWEAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: SIWE
+      description: Sign-In With Ethereum (EIP-4361)
+
+  schemas:
+    PinStatus:
+      type: string
+      enum: [queued, pinning, pinned, failed]
+
+    Region:
+      type: string
+      enum: [us-east-1, us-west-2, eu-west-1, eu-central-1, ap-southeast-1, ap-northeast-1, sa-east-1]
+
+    PinRequest:
+      type: object
+      required: [cid]
+      properties:
+        cid:         { type: string, example: bafybeigdyrzt5... }
+        name:        { type: string }
+        origins:     { type: array, items: { type: string, format: uri } }
+        replication: { type: integer, minimum: 1, maximum: 9, default: 3 }
+        region:      { $ref: '#/components/schemas/Region' }
+        encryption:  { type: boolean }
+        lifecycle:   { type: string }
+        meta:        { type: object, additionalProperties: { type: string } }
+
+    Pin:
+      allOf:
+        - $ref: '#/components/schemas/PinRequest'
+        - type: object
+          properties:
+            id:         { type: string }
+            status:     { $ref: '#/components/schemas/PinStatus' }
+            created:    { type: string, format: date-time }
+            size:       { type: integer, description: Bytes }
+            replicas:   { type: array, items: { type: string }, description: Peer IDs holding the pin }
+            filecoin:   { $ref: '#/components/schemas/FilecoinDeal' }
+            delegates:  { type: array, items: { type: string } }
+
+    PinsPage:
+      type: object
+      properties:
+        count:   { type: integer }
+        results: { type: array, items: { $ref: '#/components/schemas/Pin' } }
+        next:    { type: string, nullable: true }
+
+    FilecoinDeal:
+      type: object
+      properties:
+        dealId:   { type: integer }
+        provider: { type: string }
+        expiry:   { type: string, format: date-time }
+        verified: { type: boolean }
+
+    LifecyclePolicy:
+      type: object
+      required: [name, rules]
+      properties:
+        id:   { type: string, readOnly: true }
+        name: { type: string }
+        rules:
+          type: array
+          items:
+            type: object
+            required: [action]
+            properties:
+              action:
+                type: string
+                enum: [move-to-warm, move-to-cold, move-to-filecoin, delete, reduce-replication]
+              afterDays:       { type: integer }
+              ifNotAccessedFor:{ type: integer }
+              if:              { type: string, description: Optional CEL expression }
+
+    EnvelopeKey:
+      type: object
+      properties:
+        id:        { type: string }
+        algorithm: { type: string, enum: [AES-256-GCM] }
+        created:   { type: string, format: date-time }
+        shredded:  { type: boolean }
+
+    EnvelopeKeyCreated:
+      allOf:
+        - $ref: '#/components/schemas/EnvelopeKey'
+        - type: object
+          properties:
+            material:
+              type: string
+              description: Base64 AES-256 key — returned ONCE. Store it securely.
+
+    ShredProof:
+      type: object
+      properties:
+        keyId:        { type: string }
+        shreddedAt:   { type: string, format: date-time }
+        anchorTxHash: { type: string, description: On-chain Merkle anchor }
+        chain:        { type: string, example: ethereum }
+
+    Trigger:
+      type: object
+      required: [chain, contract, event, cidField]
+      properties:
+        id:       { type: string, readOnly: true }
+        chain:    { type: string, enum: [ethereum, polygon, arbitrum, base, optimism, avalanche, solana] }
+        contract: { type: string }
+        event:    { type: string, example: 'ProvenanceRecorded(bytes32,string)' }
+        cidField: { type: string, description: Event field containing the CID }
+        filter:   { type: object, description: Optional indexed-param filter }
+        policy:   { $ref: '#/components/schemas/PinRequest' }
+
+    UsageReport:
+      type: object
+      properties:
+        storage:
+          type: object
+          properties:
+            hotGB:      { type: number }
+            warmGB:     { type: number }
+            coldGB:     { type: number }
+            filecoinGB: { type: number }
+        bandwidth:
+          type: object
+          properties:
+            egressGB: { type: number }
+            hits:     { type: integer }
+            misses:   { type: integer }
+        requests:
+          type: object
+          properties:
+            reads:  { type: integer }
+            writes: { type: integer }
+
+    Team:
+      type: object
+      properties:
+        id:      { type: string }
+        name:    { type: string }
+        members:
+          type: array
+          items:
+            type: object
+            properties:
+              userId: { type: string }
+              role:   { type: string, enum: [owner, admin, developer, viewer, billing] }
