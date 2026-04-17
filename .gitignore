@@ -1,2 +1,4 @@
 node_modules/
 dashboard/.next/
+api/server/.env
+api/server/package-lock.json
