@@ -1,0 +1,71 @@
+# Excludes large/local-only files from the Docker build context uploaded to Cloud Build.
+# Keeps cloudbuild submissions fast and image layers clean.
+
+# Node
+**/node_modules
+**/npm-debug.log
+**/yarn-error.log
+
+# Next.js
+**/.next
+**/.turbo
+**/out
+
+# Docker
+**/Dockerfile
+!api/server/Dockerfile
+!dashboard/Dockerfile
+
+# VCS
+.git
+.gitignore
+.github
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+
+# Local env (image gets NEXT_PUBLIC_* via build-arg, not baked envs)
+.env
+.env.*
+!.env.example
+
+# Claude / agents
+.claude
+claude.md
+CLAUDE.md
+
+# Docs that don't need to ship
+*.md
+!package.json/README.md
+
+# Tests / scratch
+tests/
+**/*.test.js
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# Infra artifacts
+cloudbuild*.yaml
+DEPLOYMENT*.md
+GCP_*.md
+LAUNCH_*.md
+PRELAUNCH_*.md
+MVP_*.md
+NEXT_STEPS.md
+QUICKSTART.md
+
+# Heavy sibling projects we don't need in dashboard/api images
+gateway/
+workers/
+sdks/
+status/
+mcp/
+grants/
+marketing/
+scripts/
+specs/

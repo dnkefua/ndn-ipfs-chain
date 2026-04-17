@@ -52,7 +52,12 @@ await app.register(clusterPlugin);
 await app.register(authPlugin);
 await app.register(meteringPlugin);
 
-app.get('/healthz', async () => ({ status: 'ok', service: 'ndn-ipfs-api', version: '1.0.0' }));
+// `/healthz` is intercepted by the GCP Frontend on bare Cloud Run domains, so we expose
+// the same payload under `/_health` (and keep an alias at `/healthz` for anyone who cares
+// to hit it via an authenticated client or a private ingress).
+const healthHandler = async () => ({ status: 'ok', service: 'ndn-ipfs-api', version: '1.0.0' });
+app.get('/_health', healthHandler);
+app.get('/healthz', healthHandler);
 
 app.register(authRoutes,       { prefix: '/v1/auth' });
 app.register(billingRoutes,    { prefix: '/v1/billing' });
