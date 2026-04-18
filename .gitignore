@@ -2,3 +2,15 @@ node_modules/
 dashboard/.next/
 api/server/.env
 api/server/package-lock.json
+
+# Local env files — NEVER commit. Secrets (ANTHROPIC_API_KEY, etc) live here.
+.env.local
+.env.*.local
+dashboard/.env.local
+dashboard/.env.*.local
+
+# Machine-local Claude Code settings (allowlist may contain captured secrets)
+.claude/settings.local.json
+
+# TypeScript incremental build cache
+dashboard/tsconfig.tsbuildinfo

@@ -3,8 +3,20 @@ import Cookie from 'js-cookie';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
+export const TOKEN_KEY = 'ndn_token';
+
 export const setAuthToken = (token: string) => {
   Cookie.set('jwt', token, { expires: 7 });
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(TOKEN_KEY, token);
+  }
+};
+
+export const clearAuthToken = () => {
+  Cookie.remove('jwt');
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(TOKEN_KEY);
+  }
 };
 
 const client = axios.create({
@@ -75,9 +87,9 @@ export const api = {
       client.post('/auth/signup', { email, password, orgName }),
     login: (email: string, password: string) =>
       client.post('/auth/login', { email, password }),
-    siweNonce: () => client.get('/auth/siwe/nonce'),
-    siweVerify: (message: any, signature: string) =>
-      client.post('/auth/siwe/verify', { message, signature }),
+    siweNonce: () => client.post<{ nonce: string }>('/auth/siwe/nonce', {}),
+    siweVerify: (message: string, signature: string) =>
+      client.post<{ token: string }>('/auth/siwe/verify', { message, signature }),
   },
   pins: {
     list: (limit = 50, offset = 0) =>
@@ -115,6 +127,63 @@ export const api = {
   health: {
     // Uses base axios instance (no /v1 prefix) for the root healthz endpoint.
     check: () => axios.get(`${API_URL}/healthz`).then((r) => r.data),
+  },
+  discovery: {
+    get: () => client.get('/_discovery').then((r) => r.data),
+  },
+  records: {
+    listCollections: () => client.get('/records/collections').then((r) => r.data),
+    createCollection: (payload: { name: string; schema_cid?: string }) =>
+      client.post('/records/collections', payload).then((r) => r.data),
+    getCollection: (name: string) =>
+      client.get(`/records/collections/${encodeURIComponent(name)}`).then((r) => r.data),
+    put: (payload: { collection: string; id?: string; body: unknown; schema_cid?: string }) =>
+      client.post('/records/', payload).then((r) => r.data),
+    getByCid: (cid: string) =>
+      client.get(`/records/${encodeURIComponent(cid)}`).then((r) => r.data),
+    getHead: (collection: string, id: string) =>
+      client
+        .get(`/records/${encodeURIComponent(collection)}/${encodeURIComponent(id)}`)
+        .then((r) => r.data),
+    history: (collection: string, id: string) =>
+      client
+        .get(`/records/${encodeURIComponent(collection)}/${encodeURIComponent(id)}/history`)
+        .then((r) => r.data),
+    query: (
+      name: string,
+      params: {
+        filter: unknown;
+        projection?: unknown;
+        sort?: unknown;
+        limit?: number;
+        cursor?: string;
+      }
+    ) =>
+      client
+        .post(`/records/collections/${encodeURIComponent(name)}/query`, params)
+        .then((r) => r.data),
+    views: {
+      list: () => client.get('/records/views').then((r) => r.data),
+      get: (name: string) =>
+        client.get(`/records/views/${encodeURIComponent(name)}`).then((r) => r.data),
+      create: (payload: {
+        name: string;
+        collection: string;
+        filter: unknown;
+        projection?: unknown;
+        sort?: unknown;
+        refresh?: string;
+      }) => client.post('/records/views', payload).then((r) => r.data),
+      getByCid: (cid: string) =>
+        client.get(`/records/views/by-cid/${encodeURIComponent(cid)}`).then((r) => r.data),
+    },
+    schemas: {
+      list: () => client.get('/records/schemas').then((r) => r.data),
+      create: (payload: { name: string; schema: unknown; dialect?: string }) =>
+        client.post('/records/schemas', payload).then((r) => r.data),
+      get: (cid: string) =>
+        client.get(`/records/schemas/${encodeURIComponent(cid)}`).then((r) => r.data),
+    },
   },
 };
 

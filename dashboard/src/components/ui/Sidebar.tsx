@@ -11,6 +11,7 @@ interface SidebarItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  section?: string; // optional section header shown above this item
 }
 
 interface SidebarProps {
@@ -55,26 +56,35 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = currentPath === item.href;
 
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={clsx(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                isActive
-                  ? 'bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400'
-                  : 'text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+            <div key={item.href}>
+              {item.section && !collapsed && (
+                <p className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-600 select-none">
+                  {item.section}
+                </p>
               )}
-              onClick={() => setMobileOpen(false)}
-            >
-              <Icon className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && <span className="text-sm font-medium">{item.label}</span>}
-            </Link>
+              {item.section && collapsed && (
+                <div className="my-2 mx-2 border-t border-slate-200 dark:border-slate-800" />
+              )}
+              <Link
+                href={item.href}
+                className={clsx(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+                  isActive
+                    ? 'bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400'
+                    : 'text-slate-700 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                )}
+                onClick={() => setMobileOpen(false)}
+              >
+                <Icon className="w-5 h-5 flex-shrink-0" />
+                {!collapsed && <span className="text-sm font-medium">{item.label}</span>}
+              </Link>
+            </div>
           );
         })}
       </div>

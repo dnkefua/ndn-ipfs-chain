@@ -76,6 +76,7 @@ export default function Landing() {
           <div className="hidden md:flex items-center gap-8 text-sm text-slate-600 dark:text-slate-400">
             <a href="#features" className="hover:text-brand-600 transition">Features</a>
             <a href="#compare" className="hover:text-brand-600 transition">Compare</a>
+            <Link href="/dashboard/docs" className="hover:text-brand-600 transition">Whitepaper</Link>
             <a href="https://docs.ndnanalytics.com" className="hover:text-brand-600 transition">Docs</a>
             <a
               href="https://ndn-api-1037328355027.us-west1.run.app/docs"
@@ -217,10 +218,15 @@ export default function Landing() {
             Free tier: 5 GB, 3 replicas, all features. No credit card, no sales call. The console
             opens in under 10 seconds.
           </p>
-          <Link href="/dashboard" className="btn-primary text-base px-8 py-3 inline-flex">
-            Open the console
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/dashboard" className="btn-primary text-base px-8 py-3 inline-flex">
+              Open the console
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/dashboard/docs" className="btn-secondary text-base px-8 py-3 inline-flex">
+              Read the white paper
+            </Link>
+          </div>
         </div>
       </section>
 

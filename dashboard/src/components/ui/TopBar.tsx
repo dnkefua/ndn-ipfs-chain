@@ -2,8 +2,9 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import { Bell, User, Sun, Moon } from 'lucide-react';
+import { Bell, Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { UserMenu } from './UserMenu';
 
 interface Breadcrumb {
   label: string;
@@ -20,6 +21,7 @@ interface TopBarProps {
   onUserClick?: () => void;
   notificationCount?: number;
   className?: string;
+  extraRight?: React.ReactNode;
 }
 
 const TopBar: React.FC<TopBarProps> = ({
@@ -29,6 +31,7 @@ const TopBar: React.FC<TopBarProps> = ({
   onUserClick,
   notificationCount = 0,
   className,
+  extraRight,
 }) => {
   const [isDark, setIsDark] = useState(false);
 
@@ -71,6 +74,7 @@ const TopBar: React.FC<TopBarProps> = ({
 
         {/* Right section */}
         <div className="flex items-center gap-4 ml-auto">
+          {extraRight}
           {/* Search placeholder */}
           <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm text-slate-500 dark:text-slate-400">
             <span>⌘ K</span>
@@ -101,18 +105,8 @@ const TopBar: React.FC<TopBarProps> = ({
             )}
           </button>
 
-          {/* User menu */}
-          {user && (
-            <button
-              onClick={onUserClick}
-              className="flex items-center gap-2 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
-              aria-label="User menu"
-            >
-              <div className="w-8 h-8 bg-gradient-to-br from-brand-600 to-brand-700 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                {user.initials}
-              </div>
-            </button>
-          )}
+          {/* User menu — reads current user from JWT, handles sign out */}
+          <UserMenu />
         </div>
       </div>
     </header>

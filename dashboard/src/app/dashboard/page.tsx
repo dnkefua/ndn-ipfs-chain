@@ -9,7 +9,7 @@ const DEMO_PINS: Pin[] = [
   { id: '3', cid: 'bafybeif7ztnhq65lumvvtr4xsazvxc7re257jwv4knd7fjlid6ar7e3uy', name: 'dataset.csv', size: 10485760, status: 'pinned', created: new Date(Date.now() - 172800000).toISOString(), region: 'us-east-1', encryption: false, tier: 'cold' },
 ];
 
-export default function PinsPage() {
+export default function BlobsPage() {
   const [pins, setPins] = useState<Pin[]>(DEMO_PINS);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -68,8 +68,8 @@ export default function PinsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-slate-900">Pinned Content</h2>
-          <p className="text-slate-600 mt-2">Manage your IPFS pins and content lifecycle</p>
+          <h2 className="text-3xl font-bold text-slate-900">Blobs</h2>
+          <p className="text-slate-600 mt-2">Content-addressed blob storage — NDP blobs data plane.</p>
         </div>
         <span className="bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-medium">Demo Mode</span>
       </div>
