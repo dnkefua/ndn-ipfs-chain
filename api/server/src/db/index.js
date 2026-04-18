@@ -10,6 +10,8 @@ import { analytics } from './analytics.js';
 import { regions } from './regions.js';
 import { tenants } from './tenants.js';
 import { audit } from './audit.js';
+import { models } from './models.js';
+import { records } from './records.js';
 
 export const dbPlugin = fp(async (app) => {
   const pool = new pg.Pool({
@@ -33,6 +35,8 @@ export const dbPlugin = fp(async (app) => {
     regions:       regions({ sql, one }),
     tenants:       tenants({ sql, one }),
     audit:         audit({ sql, one }),
+    models:        models({ sql, one }),
+    records:       records({ sql, one, pool }),
   });
 
   app.addHook('onClose', async () => { await pool.end(); });

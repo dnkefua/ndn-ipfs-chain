@@ -1,212 +1,144 @@
-# NDN IPFS Chain Grant Budget Breakdown
+# NDN IPFS Chain — Grant Budget
 
-**Total Grant Amount:** $150,000 USD  
-**Project Duration:** 12 months  
-**Budget Period:** April 2026 – March 2027
-
----
-
-## 1. Personnel (80,000 USD / 53.3%)
-
-| Role | FTE | Monthly Cost | 12-Month Cost | Notes |
-|------|-----|--------------|---------------|-------|
-| CTO / Lead Architect | 1.0 | $8,000 | $96,000 | Full-time, 10+ yrs experience, part ownership equity offset |
-| Senior Backend Engineer | 1.0 | $6,500 | $78,000 | Filecoin integration lead |
-| Full-Stack Engineer | 1.0 | $5,500 | $66,000 | Dashboard, SDKs |
-| DevOps / Infrastructure | 1.0 | $5,000 | $60,000 | Kubernetes, monitoring |
-| **Personnel Subtotal** | **4.0** | **$25,000** | **$300,000** | *Without equity offsets* |
-| **Equity Offset** | — | — | ($220,000) | *CTO 30% + 2 engineers 10% each* |
-| **Personnel Grant Allocation** | — | — | **$80,000** | *Cash contribution to cover salary gaps* |
-
-### Notes
-- Core team committed part-time with equity incentives to achieve 4 FTE output on $80K budget
-- Remaining salary gaps covered by founder & early-stage investment
-- Budget funds hiring contractor roles (QA, security) as-needed
+**Total request:** $50,000 USD
+**Duration:** 12 months (April 2026 – March 2027)
+**Disbursement:** 4 milestone payments (see [MILESTONES.md](MILESTONES.md))
 
 ---
 
-## 2. Infrastructure & Cloud (30,000 USD / 20%)
+## 1. Budget overview
 
-| Item | Unit Cost | Monthly | 12-Month Cost | Purpose |
-|------|-----------|---------|---------------|---------|
-| **Cloud Compute (AWS/GCP)** | | | |
-| API Servers (3 regions) | $1,000/mo | $1,500 | $18,000 | Fastify + PostgreSQL |
-| IPFS Cluster Nodes (3) | $800/mo | $1,000 | $12,000 | Kubo peers + cluster coordinator |
-| Filecoin Deal Broker | $300/mo | $300 | $3,600 | Boost client + orchestrator |
-| **Cloud Subtotal** | | $2,800 | $33,600 | |
-| **Filecoin Deals** | | | |
-| Planned storage (100 TB/mo × 6 months) | $50/TB | $5,000 | $30,000 | Proofs dashboard pilot program |
-| **Filecoin Subtotal** | | $5,000 | $30,000 | *Separate allocation expected* |
-| **Other Infrastructure** | | | |
-| Monitoring & Logging (Datadog) | $200/mo | $200 | $2,400 | Observability |
-| DNS & CDN (Cloudflare) | $100/mo | $100 | $1,200 | Anycasting, DDoS protection |
-| Database Backups (backups.io) | $50/mo | $50 | $600 | PostgreSQL snapshots |
-| **Other Subtotal** | | $350 | $4,200 | |
-| **Infrastructure Grant Total** | | **$3,150** | **$30,000** | |
-
-### Notes
-- **Filecoin storage:** Assumed $50/TB/month at pilot scale; may negotiate lower rates with SPs
-- **Cloud compute:** Right-sized for 500K pins at project end
-- Cost per pin: $0.001 at scale
+| Category | Amount | % of grant | Rationale |
+|---|---:|---:|---|
+| Founder engineering stipend | $20,000 | 40% | Part-time on grant scope; remainder of solo-dev time funded by NDN Analytics commercial revenue |
+| Public gateway infrastructure | $12,000 | 24% | Cloudflare Workers, anycast DNS, egress, 3 regional PoPs |
+| Security audit (SDKs + API) | $7,000 | 14% | One third-party review at M2, fix-and-reverify |
+| Filecoin deals (pilot storage) | $3,000 | 6% | 500 GB × 6 months via FIL+ with 3 SP partners |
+| Developer education + docs hosting | $3,000 | 6% | Mintlify, domain, tutorial production, sample-app hosting |
+| Domain + SSL + operational tooling | $1,500 | 3% | `ndnipfs.com` registration, wildcard cert, monitoring |
+| Conference travel (1 trip, talks) | $2,000 | 4% | IPFS Thing or Devcon (SDK demo + feedback) |
+| Contingency | $1,500 | 3% | Unallocated buffer; unused portion returned to Foundation |
+| **TOTAL** | **$50,000** | **100%** | |
 
 ---
 
-## 3. Security & Compliance (15,000 USD / 10%)
+## 2. Detailed line items
 
-| Item | Cost | Frequency | Notes |
-|------|------|-----------|-------|
-| Third-Party Security Audit | $8,000 | 1x (Month 6) | Code review + penetration test |
-| Smart Contract Audit (ERC-721 trigger) | $4,000 | 1x (Month 8) | Formal verification |
-| GDPR Compliance Consultation | $2,000 | 1x (Month 3) | Legal review + privacy policy |
-| SSL/TLS Certificates | $500 | 1x renewal (Month 10) | Let's Encrypt + wildcard |
-| Penetration Testing (annual retainer) | $1,000 | 1x (Month 12) | Ongoing vulnerability scan |
-| **Security Subtotal** | **$15,500** | | |
-| **Grant Allocation** | **$15,000** | | *Rounded down* |
+### 2.1 Founder engineering stipend — $20,000
 
-### Notes
-- Security-first approach to build trust with enterprise users
-- Annual audit + retainer establishes responsible disclosure program
+| Sub-item | Detail |
+|---|---|
+| Hours dedicated to grant scope | ~20 hrs/week × 50 weeks ≈ 1,000 hrs |
+| Effective rate | $20/hr on grant scope — well below market |
+| Commercial-business offset | NDN Analytics pays the founder's primary salary; this stipend specifically compensates time spent on **public-good deliverables** (SDKs, gateway, docs, conformance suite) that commercial customers don't pay for |
+| Documentation | Timesheet + PR links submitted with each milestone report |
 
----
+The stipend is deliberately set below market rate. It is a cost-recovery allocation, not a full salary — the Foundation is not paying for a 4-FTE fiction, it is paying for the incremental hours a solo dev can redirect from commercial work to public-good work over 12 months.
 
-## 4. Operations & DevOps (15,000 USD / 10%)
+### 2.2 Public gateway infrastructure — $12,000
 
-| Category | Monthly | 12-Month | Notes |
-|----------|---------|----------|-------|
-| **Incident Response & Support** | $500 | $6,000 | On-call rotation + SLA breaches |
-| **Operational Tooling** | | |  |
-| – GitHub Enterprise | $50/mo | $600 | Private repos, branch protection |
-| – Slack workspace (pro) | $80/mo | $960 | Team communication |
-| – Linear (project tracking) | $100/mo | $1,200 | Issue management |
-| **CI/CD & Testing** | | |  |
-| – GitHub Actions (self-hosted) | $200/mo | $2,400 | Build + deploy automation |
-| – Testing infrastructure | $300/mo | $3,600 | Integration test VMs |
-| **Documentation** | | |  |
-| – ReadTheDocs hosting | $50/mo | $600 | API docs + tutorials |
-| **Contingency** | $200/mo | $2,400 | Unexpected operational costs |
-| **Operations Subtotal** | **$1,480** | **$17,860** | |
-| **Grant Allocation** | | **$15,000** | *Prioritize incident response* |
+| Item | Monthly | 12-month | Notes |
+|---|---:|---:|---|
+| Cloudflare Workers + R2 egress (primary CDN) | $400 | $4,800 | Near-zero egress via Workers + aggressive CID caching |
+| Cloud Run gateway origin (3 regions: us-west, eu-west, ap-southeast) | $300 | $3,600 | Scale-to-zero, pay-per-request |
+| Cloud SQL for gateway analytics + rate-limit state | $100 | $1,200 | Shared with main NDN stack (pro-rated) |
+| Anycast DNS (Cloudflare) + wildcard SSL | $50 | $600 | `*.ipfs.ndnipfs.com` |
+| Prometheus + Grafana Cloud (status page data) | $100 | $1,200 | Free tier insufficient at target traffic |
+| Reserve for egress overage | $50 | $600 | Activated if unique clients/mo > target |
+| **Subtotal** | **$1,000** | **$12,000** | |
 
----
+Cost-per-request target at Y1 end: **< $0.00015** — within a 3× margin of Cloudflare's public gateway cost structure.
 
-## 5. Marketing & Developer Relations (10,000 USD / 6.7%)
+### 2.3 Security audit — $7,000
 
-| Activity | Cost | Frequency | Impact |
-|----------|------|-----------|--------|
-| **Content Creation** | | |  |
-| Technical blog posts | $500 | 4x (quarterly) | $2,000 | Community education |
-| Video tutorials (JS/Python/Go SDKs) | $2,000 | 1x (Month 4) | SDK onboarding |
-| Whitepaper (Filecoin integration) | $1,500 | 1x (Month 5) | Technical credibility |
-| **Conference & Events** | | |  |
-| NFT.NYC booth + sponsorship | $3,000 | 1x (June) | Web3 audience |
-| IPFS Camp attendance | $2,000 | 1x (October) | Community visibility |
-| Filecoin Liftoff event | $1,000 | 1x (September) | Sp partnerships |
-| **Community Programs** | | |  |
-| GitHub Sponsors matching | $500 | Monthly | $6,000 | Support open development |
-| Community grants (integration partners) | $1,000 | Quarterly | $4,000 | Ecosystem building |
-| **Marketing Subtotal** | | | **$20,000** | |
-| **Grant Allocation** | | | **$10,000** | *Focus on content & partnerships* |
+| Item | Cost | Timing |
+|---|---:|---|
+| Third-party code review of JS + Python SDKs | $3,500 | Month 6 |
+| API pentest (OWASP top 10 + auth surface) | $2,500 | Month 6 |
+| Fix-and-reverify round | $1,000 | Month 7 |
+| **Subtotal** | **$7,000** | |
 
-### Notes
-- Bootstrapped founder contributes sweat equity for events
-- Strategy: Build credibility through technical content, not paid ads
+Findings + remediation summary published publicly at `github.com/dnkefua/ndn-ipfs-chain/security`.
 
----
+### 2.4 Filecoin deals (pilot) — $3,000
 
-## 6. Legal & Compliance (5,000 USD / 3.3%)
+| Item | Detail |
+|---|---|
+| Target storage | 500 GB × 6 months pinned via FIL+ |
+| Partner SPs | Minimum 3, geographically distributed |
+| Deal cost assumption | ~$1/GB-year at FIL+ rates (conservative) |
+| Retrieval tests | Weekly, results pushed to proofs dashboard |
 
-| Item | Cost | Frequency | Purpose |
-|------|------|-----------|---------|
-| Business Registration (C-Corp) | $500 | 1x (Month 1) | Delaware incorporation |
-| Terms of Service & Privacy Policy | $1,500 | 1x (Month 2) | Legal templates + review |
-| Blockchain Compliance Review | $2,000 | 1x (Month 6) | Crypto payment regulations |
-| Insurance (E&O + D&O) | $500 | 1x annual (Month 8) | Professional liability |
-| **Legal Subtotal** | **$5,000** | | |
-| **Grant Allocation** | **$5,000** | | |
+### 2.5 Developer education — $3,000
 
----
+| Item | Cost |
+|---|---:|
+| Mintlify docs hosting (12 mo × $120) | $1,440 |
+| Tutorial production (screen recording, editing, 5 tutorials) | $900 |
+| Sample-app hosting + sponsored CodeSandbox templates | $360 |
+| Stock assets + illustrations | $300 |
+| **Subtotal** | **$3,000** |
 
-## 7. Contingency (5,000 USD / 3.3%)
+### 2.6 Domain + operational tooling — $1,500
 
-| Risk | Reserve | Notes |
-|------|---------|-------|
-| Unexpected infrastructure costs | $2,000 | Scaling beyond projections |
-| Emergency staff augmentation | $2,000 | Contractor to cover gaps |
-| Regulatory changes | $1,000 | Compliance adjustments |
-| **Contingency Total** | **$5,000** | **3.3% of budget** |
+| Item | Cost |
+|---|---:|
+| `ndnipfs.com` domain registration (10-year) | $180 |
+| Google Workspace (nkefua@ndnanalytics.com is existing; grant admin mailbox) | $120 |
+| Monitoring (Sentry + Uptime Robot) — pro-rated grant share | $600 |
+| GitHub Actions minutes (public repos) | $300 |
+| Misc tooling | $300 |
+| **Subtotal** | **$1,500** |
 
-### Notes
-- Held in reserve; only allocated if approved by grant monitor
-- Any remaining contingency returned to IPFS Foundation
+### 2.7 Conference travel — $2,000
+
+One trip to IPFS Thing or Devcon (flight + hotel + registration) to deliver a 20-minute SDK demo and collect community feedback. Recording published publicly within 30 days of the talk.
+
+### 2.8 Contingency — $1,500
+
+3% buffer. Activation requires written disclosure to the Foundation. Any portion unused at M4 is returned to the Foundation.
 
 ---
 
-## Grant Budget Summary
+## 3. What this budget explicitly does NOT include
 
-```
-┌─────────────────────────────────┬─────────┬──────────┐
-│ Category                        │ Amount  │ % Total  │
-├─────────────────────────────────┼─────────┼──────────┤
-│ Personnel (4 FTE salary support)│ $80,000 │  53.3%   │
-│ Infrastructure & Cloud          │ $30,000 │  20.0%   │
-│ Security & Compliance           │ $15,000 │  10.0%   │
-│ Operations & DevOps             │ $15,000 │  10.0%   │
-│ Marketing & DevRel              │ $10,000 │   6.7%   │
-│ Legal & Compliance              │  $5,000 │   3.3%   │
-│ Contingency                     │  $5,000 │   3.3%   │
-├─────────────────────────────────┼─────────┼──────────┤
-│ **TOTAL GRANT REQUEST**         │**$150K**│ **100%** │
-└─────────────────────────────────┴─────────┴──────────┘
-```
+To be upfront about scope boundaries:
+
+- **Founder's primary salary** — covered by NDN Analytics commercial revenue (pharma + healthcare-data customers).
+- **Main NDN Analytics infrastructure** — existing Cloud Run / Cloud SQL / Secret Manager spend for the commercial product, paid by commercial revenue.
+- **Marketing beyond docs + one conference** — no paid ads, no PR firm, no sponsored content.
+- **Legal incorporation** — NDN Analytics is an existing entity.
+- **Hiring** — no FTE hires funded by this grant. If Year-2 scales, hiring is a Year-2 proposal.
+
+If any of these items need coverage during the grant period, I will cover them from commercial revenue or defer them, not expand the grant ask.
 
 ---
 
-## Unmet Funding Gaps (Team Equity & Sweat)
+## 4. Reporting
 
-To achieve 4 FTE output, the team is providing:
+| Cadence | Artifact |
+|---|---|
+| Monthly | Short written update: milestone progress, spend-to-date, blockers. Submitted via email to assigned program officer. |
+| Per milestone | Milestone report: deliverables shipped (links to repos, URLs, PRs), KPI snapshot against §5 of the application, timesheet summary, receipts for line items > $500. |
+| Annually | Year-end summary: all KPIs against targets, lessons learned, sustainability plan for Year 2+, final accounting reconciliation. |
 
-| Item | Value | Source |
-|------|-------|--------|
-| CTO salary gap | $96,000 | 30% equity stake (founder) |
-| Sr. Backend Engineer | $66,000 | 10% equity stake (co-founder) |
-| Full-Stack Engineer | $60,000 | 10% equity stake (early hire) |
-| Prior development work (pre-grant) | $40,000 | Founder investment (3 months) |
-| **In-Kind Contribution** | **$262,000** | |
-| **Total Project Value** | **$412,000** | Grant + equity |
-
-### Sustainability
-Post-grant (Month 12+), the company will be self-sustaining via:
-- SaaS subscription revenue ($50K/month target by end of M4)
-- Filecoin revenue share (network incentives)
-- Enterprise support contracts
-- Storage cost arbitrage (buy wholesale, resell at margin)
+All reports will be published publicly at `github.com/dnkefua/ndn-ipfs-chain/grants` within 14 days of submission to the Foundation, so the broader community can see what the money bought.
 
 ---
 
-## Monthly Cash Flow Projection
+## 5. Disbursement schedule
 
-| Month | Salary | Infrastructure | Other | Total Spend | Runway |
-|-------|--------|-----------------|-------|------------|--------|
-| M1 | $25,000 | $3,500 | $2,000 | $30,500 | $119,500 |
-| M2 | $25,000 | $3,500 | $2,000 | $30,500 | $89,000 |
-| M3 | $25,000 | $3,500 | $2,500 | $31,000 | $58,000 |
-| M4–M12 | $25,000/mo | $3,500/mo | $1,500–3,000/mo | ~$30K/mo | Recharged by revenue |
+| Milestone | Month | Amount |
+|---|---:|---:|
+| M1 — SDKs v1.0 + Pinning Services API conformance ≥ 80% | 3 | $15,000 |
+| M2 — Public gateway live in 3 regions | 6 | $15,000 |
+| M3 — Filecoin integration + proofs dashboard | 9 | $10,000 |
+| M4 — Y1 metrics hit (SDK / gateway / CID / conformance) | 12 | $10,000 |
+| **Total** | | **$50,000** |
 
-**Burn Rate:** $30.5K/month  
-**Runway:** 4.9 months (conservative)  
-**Revenue Inflection:** Month 4 (target $5K MRR) allows extending runway
-
----
-
-## Reporting & Accountability
-
-- **Monthly reports** to IPFS Foundation with milestone progress, spend, and KPI tracking
-- **Quarterly reviews** with video demo of working features
-- **Annual audit** of grant spend with receipts and invoices
-- **Open-source commitment:** Code published under Apache 2.0 + community feedback incorporated
+Missed milestones → 60-day cure period → if not cured, subsequent payments paused and unspent funds returned.
 
 ---
 
-*Prepared by: NDN Analytics Foundation*  
-*Date: April 17, 2026*  
-*Contact: hello@ndnanalytics.com*
+*Prepared by: Ndibe Kefua, NDN Analytics*
+*Contact: nkefua@ndnanalytics.com*

@@ -25,6 +25,7 @@ import { meteringPlugin } from './plugins/metering.js';
 import authRoutes from './routes/auth.js';
 import billingRoutes from './routes/billing.js';
 import modelRoutes from './routes/models.js';
+import recordsRoutes from './routes/records.js';
 
 const app = Fastify({
   logger: { level: process.env.LOG_LEVEL ?? 'info', redact: ['req.headers.authorization', 'req.headers["x-api-key"]'] },
@@ -70,6 +71,23 @@ app.register(triggersRoutes,   { prefix: '/v1/triggers' });
 app.register(analyticsRoutes,  { prefix: '/v1/analytics' });
 app.register(teamsRoutes,      { prefix: '/v1/teams' });
 app.register(modelRoutes,      { prefix: '/v1/models' });
+app.register(recordsRoutes,    { prefix: '/v1/records' });
+
+// NDP discovery endpoint — declares which of the three databases this deployment
+// exposes and which optional spec extensions are live. See specs/ndp_protocol.md §7.
+app.get('/v1/_discovery', async () => ({
+  ndp_version: '1.0',
+  provider: 'ndn-ipfs-chain',
+  provider_version: process.env.npm_package_version ?? '0.4.0',
+  databases: {
+    blobs:      { enabled: true, pinning_services_api: 'v1.0' },
+    models:     { enabled: true, streaming: ['chunked', 'range'] },
+    structured: { enabled: true, query_extensions: [], views: true },
+  },
+  auth_methods: ['api_key', 'jwt', 'siwe'],
+  cid_codecs: ['raw', 'dag-pb'],
+  hash_functions: ['sha-256'],
+}));
 
 const port = Number(process.env.PORT ?? 3000);
 await app.listen({ port, host: '0.0.0.0' });

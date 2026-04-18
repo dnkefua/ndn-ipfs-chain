@@ -6,7 +6,25 @@
       "WebFetch(domain:www.ndnanalytics.com)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(gcloud config *)",
+      "Bash(gcloud sql *)",
+      "Bash(curl -sS -o - -w \"\\\\nHTTP %{http_code}\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/healthz)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/docs)",
+      "Bash(curl -sS -o - -w \"\\\\nHTTP %{http_code}\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/v1/models)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}\\\\n\" -X POST -H \"Content-Type: application/json\" -d \"{}\" https://ndn-api-1037328355027.us-west1.run.app/v1/auth/signup)",
+      "Bash(curl -sSL -v https://ndn-api-1037328355027.us-west1.run.app/healthz)",
+      "Bash(curl -sS -o - -w \"\\\\nHTTP %{http_code}\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/healthz/)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/_healthz)",
+      "Bash(gcloud services *)",
+      "Bash(gcloud artifacts *)",
+      "Bash(curl -sS -w \"\\\\n[HTTP %{http_code}] %{time_total}s\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/_health)",
+      "Bash(curl -sS -w \"\\\\n[HTTP %{http_code}] %{time_total}s\\\\n\" https://ndn-api-1037328355027.us-west1.run.app/healthz)",
+      "Bash(curl -sS -w \"\\\\n[HTTP %{http_code}] %{time_total}s\\\\n\" -H \"x-api-key: dev-key\" https://ndn-api-1037328355027.us-west1.run.app/v1/models)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}  size=%{size_download}B  ttfb=%{time_starttransfer}s\\\\n\" https://ndn-dashboard-1037328355027.us-west1.run.app/)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}  size=%{size_download}B  ttfb=%{time_starttransfer}s\\\\n\" https://ndn-dashboard-1037328355027.us-west1.run.app/dashboard)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code}  size=%{size_download}B  ttfb=%{time_starttransfer}s\\\\n\" https://ndn-dashboard-1037328355027.us-west1.run.app/dashboard/models)",
+      "Bash(curl -sS https://ndn-dashboard-1037328355027.us-west1.run.app/)"
     ]
   }
 }
