@@ -4,7 +4,7 @@
 
 **Role:** Every role. Solo developer on NDN IPFS Chain.
 
-**Background:** Founder of NDN Analytics LLC, an Oklahoma entity registered in April 2026. The company is early-stage and pre-revenue. NDN IPFS Chain is its first shipping product; the commercial tiers (enterprise pinning, managed Filecoin, AI model registry, lifecycle) are live on the dashboard but do not yet have paying customers.
+**Background:** Founder and sole operational principal of **NDN Analytics Inc.**, an Oklahoma corporation registered in **Tulsa, Oklahoma** in April 2026. The corporate entity was registered by a **silent partner acting as registered agent** (equity holder, non-operational); **Nkefua Desmond is the sole operational founder, sole developer, and authorized signatory for this grant application** — corporate resolution authorizing the application available to the Foundation on request. Nkefua is based in **Dubai, UAE**; all grant-funded work is performed from Dubai and disbursed to NDN Analytics Inc. via standard international wire / Wise. The company is early-stage and pre-revenue. NDN IPFS Chain is its first shipping product; the commercial tiers (enterprise pinning, managed Filecoin, AI model registry, lifecycle) are live on the dashboard but do not yet have paying customers.
 
 The engineering practices the stack is built on — Node.js/Fastify, Postgres 16, Cloud Run, event-driven workers, multi-tenant auth + tenancy isolation, envelope encryption, tus resumable uploads — are areas the founder has worked in prior to forming NDN Analytics. The grant is not being used to learn these primitives; it is being used to turn already-shipped primitives into the **public-good layer** (SDKs, free gateway, conformance suite, tutorials, AI-assistant open-sourcing) that a commercial customer alone would not fund.
 
@@ -31,9 +31,11 @@ Commit history is public at `github.com/dnkefua/ndn-ipfs-chain`.
 
 ---
 
-## Silent Partner
+## Silent Partner & Corporate Structure
 
-One silent partner holds equity in NDN Analytics and is aware of this grant submission. No day-to-day operational involvement; no role in grant-funded work. Named to the Foundation privately on request for compliance but not published here.
+One silent partner holds equity in NDN Analytics Inc., registered the Oklahoma entity, and is the registered agent of record on file with the Oklahoma Secretary of State. The silent partner has **no day-to-day operational involvement, no role in grant-funded work, no signing authority over the grant application, and no claim on grant deliverables or funds.** All grant-funded code, docs, and deliverables are authored and shipped by Nkefua Desmond from Dubai. Named to the Foundation privately on request for compliance verification but not published here.
+
+This structure (operational founder distinct from registered agent) is standard for U.S.-registered entities with a non-resident sole operator; it exists for jurisdictional and filing reasons, not governance reasons. If the reviewer pulls the Oklahoma SoS public record and sees the silent partner listed as registered agent, that is expected and not a discrepancy with this application.
 
 ---
 

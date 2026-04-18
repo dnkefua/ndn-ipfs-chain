@@ -433,6 +433,6 @@ Free-tier gateway access is rate-limited at 500 req/min/IP and 50 GB/month per a
 
 ---
 
-*Nkefua Desmond ("Blockchainer") — Founder, NDN Analytics LLC (Oklahoma, formed April 2026)*
+*Nkefua Desmond ("Blockchainer") — Founder & Sole Developer, NDN Analytics Inc. (Tulsa, Oklahoma; formed April 2026). Based in Dubai.*
 *nkefuan@yahoo.com · Twitter/X [@dnkefua](https://twitter.com/dnkefua) · GitHub [@dnkefua](https://github.com/dnkefua)*
-*NDN Analytics LLC is a founder-led, pre-revenue Oklahoma entity. One silent partner (equity, non-operational). This white paper accompanies the IPFS Foundation Grant Application.*
+*NDN Analytics Inc. is a founder-led, pre-revenue Oklahoma corporation registered in Tulsa. The corporate entity was registered by a silent partner acting as registered agent (equity, non-operational); Nkefua Desmond is the sole operational founder, sole developer, and authorized signatory for this grant application. This white paper accompanies the IPFS Foundation Grant Application.*

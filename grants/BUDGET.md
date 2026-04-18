@@ -33,7 +33,7 @@
 | Scope boundary | Stipend compensates time spent on **public-good deliverables only** (SDKs, gateway, docs, conformance suite, AI-assistant open-sourcing). Time spent on commercial-tier features (enterprise pinning plans, private AI model hosting, etc.) is **not** charged against the grant. |
 | Documentation | Timesheet + PR links submitted with each milestone report |
 
-The stipend is deliberately set below market rate. NDN Analytics LLC is pre-revenue (entity registered April 2026), so the Foundation is not paying a fraction of an existing founder salary — the grant stipend is the founder's full compensation for grant-scope work over 12 months. Personal runway outside grant-scope hours is the founder's responsibility and is not part of this ask. If the commercial side of the platform reaches first revenue during the grant period, any commercial-tier work happens on the founder's own time and does not draw on grant funds.
+The stipend is deliberately set below market rate. NDN Analytics Inc. is pre-revenue (entity registered in Tulsa, Oklahoma in April 2026), so the Foundation is not paying a fraction of an existing founder salary — the grant stipend is the founder's full compensation for grant-scope work over 12 months. Personal runway outside grant-scope hours is the founder's responsibility and is not part of this ask. If the commercial side of the platform reaches first revenue during the grant period, any commercial-tier work happens on the founder's own time and does not draw on grant funds.
 
 ### 2.2 Public gateway infrastructure — $12,000
 
@@ -107,7 +107,7 @@ To be upfront about scope boundaries:
 - **Founder's non-grant-scope time** — personal runway during the grant period is the founder's responsibility and outside this ask.
 - **Existing NDN Analytics infrastructure** — the Cloud Run / Cloud SQL / Secret Manager spend for the commercial-tier side of the platform (enterprise pinning, AI model registry, etc.) is modest at pre-revenue scale and is the founder's personal cost, not a grant line item.
 - **Marketing beyond docs + one conference** — no paid ads, no PR firm, no sponsored content.
-- **Legal incorporation** — NDN Analytics LLC was registered in Oklahoma in April 2026; formation fees were paid pre-application and are not part of this ask.
+- **Legal incorporation** — NDN Analytics Inc. was registered in Tulsa, Oklahoma in April 2026 by a silent partner acting as registered agent; formation fees were paid pre-application and are not part of this ask.
 - **Hiring** — no FTE hires funded by this grant. If Year-2 scales, hiring is a Year-2 proposal contingent on commercial revenue or a follow-on grant.
 
 If any of these items need coverage during the grant period, they will be deferred or covered out-of-pocket — not rolled into the grant ask.
@@ -140,5 +140,5 @@ Missed milestones → 60-day cure period → if not cured, subsequent payments p
 
 ---
 
-*Prepared by: Nkefua Desmond, NDN Analytics LLC*
+*Prepared by: Nkefua Desmond, Founder — NDN Analytics Inc. (Tulsa, Oklahoma; based in Dubai)*
 *Contact: nkefuan@yahoo.com · Twitter/X @dnkefua*

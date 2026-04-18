@@ -1,7 +1,7 @@
 # Cover Letter
 
 **To:** IPFS Foundation Grants Committee
-**From:** Nkefua Desmond, Founder — NDN Analytics LLC
+**From:** Nkefua Desmond, Founder & Sole Developer — NDN Analytics Inc. (Tulsa, Oklahoma; founder based in Dubai)
 **Re:** Implementations & Integrations grant application — NDN IPFS Chain
 **Date:** April 2026
 
@@ -15,7 +15,7 @@ The full proposal, budget, milestones, and team document are attached. I want to
 
 **First — this is not a pitch for vapor.** As of the submission date, the core infrastructure is already deployed and reachable. The Fastify API is live on Google Cloud Run with a Pinning Services–compatible surface, the Next.js dashboard is live alongside it, and the repository at `github.com/dnkefua/ndn-ipfs-chain` is public and Apache-2.0. I'd rather you click the URLs in §3 of the application than take my word on execution capacity.
 
-**Second — this is a solo-developer, pre-revenue application, and I want to be upfront about that.** I am the sole engineer on NDN IPFS Chain. NDN Analytics LLC was registered in Oklahoma this month and has no commercial revenue yet. I have one silent partner — equity holder, no operational role. The grant is therefore being treated as **seed funding** for the public-good workstream (open SDKs, free public gateway, Pinning Services v1.0 + NDP conformance suites, developer tutorials, the open-sourcing of the in-console AI onboarding assistant) during the 12-month window in which the commercial side of the platform — enterprise pinning tiers, managed Filecoin, AI model registry — is brought to first revenue.
+**Second — this is a solo-developer, pre-revenue application, and I want to be upfront about that.** I am the sole engineer on NDN IPFS Chain. **NDN Analytics Inc.** was registered in **Tulsa, Oklahoma** this month and has no commercial revenue yet. I have one silent partner who registered the entity and serves as registered agent on the Oklahoma SoS filing — equity holder only, no operational role, no signing authority on this grant. I am based in Dubai and perform all grant-funded work from there; the U.S. corporation is the receiving entity. The grant is therefore being treated as **seed funding** for the public-good workstream (open SDKs, free public gateway, Pinning Services v1.0 + NDP conformance suites, developer tutorials, the open-sourcing of the in-console AI onboarding assistant) during the 12-month window in which the commercial side of the platform — enterprise pinning tiers, managed Filecoin, AI model registry — is brought to first revenue.
 
 I've been deliberate about scope. A $150K ask with a 4-FTE team would have been easy to assemble on paper; it also would have been fiction. $50K funds what one developer can realistically deliver in 12 months, with clean milestone gates and money returned to the Foundation if gates are missed. The pre-revenue status is a risk, and I want to name it rather than paper over it: the mitigation is that every grant deliverable is Apache-2.0 and specification-backed, so the public goods produced here survive even in the downside case where the commercial side of NDN Analytics does not reach first revenue on the expected timeline. If Year 1 lands well, I'll earn the right to submit a larger Year-2 proposal on the strength of shipped metrics and, ideally, commercial ARR evidence.
 
@@ -26,7 +26,7 @@ Thank you for reviewing. I'm glad to answer any questions or demo any part of th
 Best regards,
 
 **Nkefua Desmond** — Blockchainer
-Founder, NDN Analytics LLC (Oklahoma)
+Founder & Sole Developer, NDN Analytics Inc. (Tulsa, Oklahoma) · based in Dubai
 nkefuan@yahoo.com · nkefua@ndnanalytics.com
 Twitter / X: [@dnkefua](https://twitter.com/dnkefua)
 GitHub: [github.com/dnkefua/ndn-ipfs-chain](https://github.com/dnkefua/ndn-ipfs-chain)

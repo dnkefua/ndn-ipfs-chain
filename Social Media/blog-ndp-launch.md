@@ -201,4 +201,4 @@ The conformance suite (`@ndnanalytics/ndp-conformance`) is one of the primary de
 
 ---
 
-*Nkefua Desmond ("Blockchainer") is the founder of NDN Analytics LLC (Oklahoma), building the data layer for the decentralized web. Reach out on Twitter/X [@dnkefua](https://twitter.com/dnkefua) or by email at nkefuan@yahoo.com.*
+*Nkefua Desmond ("Blockchainer") is the founder and sole developer of NDN Analytics Inc. (Tulsa, Oklahoma; registered April 2026), based in Dubai. The corporate entity was registered by a silent partner acting as registered agent; Nkefua is the sole operational founder and authorized signatory. Reach out on Twitter/X [@dnkefua](https://twitter.com/dnkefua) or by email at nkefuan@yahoo.com.*

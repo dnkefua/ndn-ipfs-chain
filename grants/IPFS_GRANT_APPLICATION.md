@@ -123,15 +123,15 @@ These targets are deliberately calibrated to first-year reality for a solo dev w
 
 ## 6. Why us
 
-**Nkefua Desmond** (Twitter/X `@dnkefua`) — founder & sole developer, NDN Analytics LLC (Oklahoma, formed April 2026).
+**Nkefua Desmond** (Twitter/X `@dnkefua`) — founder & sole developer, **NDN Analytics Inc.** (Oklahoma corporation registered in **Tulsa, Oklahoma** in April 2026). Based in **Dubai, UAE**; the U.S. corporation is the receiving entity for grant disbursement.
 
 I'm going to be straightforward about what this application is and isn't, because the Foundation will find these facts anyway and I'd rather surface them than have them found.
 
 **What I am:** a solo developer who, over roughly three months, shipped a production-deployed IPFS platform — multi-tenant Fastify API with a Pinning Services v1.0–compatible surface, Next.js 14 console, HuggingFace model importer, Postgres 16 schema on Cloud SQL, the NDP v1.0 specification document, a live reference implementation across three data planes, a working in-console AI onboarding assistant, SIWE wallet auth, and full GCP deployment pipeline. Every URL in §3 resolves. Every feature in the dashboard is traceable to a single public commit history. The repository and all derived artifacts are Apache-2.0.
 
-**What I am not:** an operator with existing commercial revenue. NDN Analytics LLC was registered in Oklahoma this month; it has no current customers and no revenue subsidizing this work. The grant is not a top-up on an existing budget — it is the seed that funds the public-good deliverables (SDKs, public gateway, conformance suite, docs, AI-assistant open-sourcing) during a 12-month window while the commercial side of the platform (enterprise pinning, lifecycle, Filecoin, AI model registry) is brought to first revenue.
+**What I am not:** an operator with existing commercial revenue. NDN Analytics Inc. was registered in Tulsa, Oklahoma this month; it has no current customers and no revenue subsidizing this work. The grant is not a top-up on an existing budget — it is the seed that funds the public-good deliverables (SDKs, public gateway, conformance suite, docs, AI-assistant open-sourcing) during a 12-month window while the commercial side of the platform (enterprise pinning, lifecycle, Filecoin, AI model registry) is brought to first revenue.
 
-I have one silent partner — equity holder, no operational involvement, aware of and signed off on this application.
+**Corporate structure — important transparency note for the reviewer:** the Oklahoma entity was registered by a **silent partner acting as registered agent**. That silent partner is an equity holder with **no operational involvement, no signing authority on this grant, no role in grant-funded deliverables, and no claim on grant funds**. I am the sole operational founder, sole developer, sole author of every deliverable in this application, and sole authorized signatory. If the Foundation pulls the Oklahoma Secretary of State record and sees the silent partner listed as registered agent, that is expected and consistent with this disclosure — it is a filing-and-jurisdiction arrangement, not a governance one. A corporate resolution authorizing this grant application in my name is available on request. The silent partner has been named to the Foundation privately on request for compliance; not published here for their privacy.
 
 **What I'm backed by:** execution velocity and a shipped stack, not claims I can't substantiate. The commit graph is the résumé. If that isn't sufficient signal on its own, this grant isn't the right fit and I'd rather the Foundation fund someone who clears the bar on both dimensions. If it is sufficient signal, the $50K / 12-month / milestone-gated structure turns that velocity into public-good infrastructure the whole ecosystem uses.
 
@@ -164,7 +164,7 @@ Missed milestones trigger a 60-day cure period; failure to cure → remaining fu
 
 ## 10. Sustainability after the grant
 
-NDN Analytics LLC has no current commercial revenue — the entity was formed this month. The grant is therefore being treated as the **seed funding** for the public-good workstream, not as a top-up to an existing budget. Post-grant sustainability depends on the commercial side of the platform — enterprise pinning tiers, managed Filecoin, AI model registry, and lifecycle tooling — reaching first paying customers during the 12-month grant window. The path to that is concrete:
+NDN Analytics Inc. has no current commercial revenue — the entity was formed this month in Tulsa, Oklahoma. The grant is therefore being treated as the **seed funding** for the public-good workstream, not as a top-up to an existing budget. Post-grant sustainability depends on the commercial side of the platform — enterprise pinning tiers, managed Filecoin, AI model registry, and lifecycle tooling — reaching first paying customers during the 12-month grant window. The path to that is concrete:
 
 1. **Months 1–6 — ship the public-good primitives** funded by this grant (SDKs, free gateway, conformance suite, tutorials, AI assistant open-sourcing). These are reviewed openly and are the primary grant deliverables.
 2. **Months 3–12 — convert downstream demand into commercial pilots.** The SDKs and gateway create a funnel; enterprise pricing is live on the dashboard from day 1. A realistic target is 2–5 paying pilot accounts by M12 at $2K–$10K/mo each.

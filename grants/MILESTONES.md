@@ -169,5 +169,5 @@ If a milestone gate is not met by its scheduled month:
 
 ---
 
-*Prepared by: Nkefua Desmond, NDN Analytics LLC*
+*Prepared by: Nkefua Desmond, Founder — NDN Analytics Inc. (Tulsa, Oklahoma; based in Dubai)*
 *Contact: nkefuan@yahoo.com · Twitter/X @dnkefua*
