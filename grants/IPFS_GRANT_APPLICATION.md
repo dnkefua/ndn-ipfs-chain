@@ -5,7 +5,7 @@
 > **Contact:** Ndibe Kefua — nkefua@ndnanalytics.com — https://www.ndnanalytics.com
 > **Repo:** https://github.com/dnkefua/ndn-ipfs-chain
 > **Request:** $50,000 over 12 months
-> **Submission date:** April 2026
+> **Submission date:** April 2026 (revision 2 — prototype upgrade)
 
 ---
 
@@ -35,8 +35,12 @@ Unlike most applications at this stage, the infrastructure is **already live** a
 | System spec (v2.0) | Published in repo | `specs/system_spec.md` |
 | NDN Data Protocol (NDP v1.0) spec | Drafted, published in repo | `specs/ndp_protocol.md` |
 | NDP reference implementation (blobs + models + records legs) | Live on the API above | `/v1/pins`, `/v1/models`, `/v1/records`, `/v1/_discovery` |
+| AI onboarding assistant (drafts schemas, queries, pin snippets in-console) | Live, Anthropic-backed, server-side proxy | Floating widget on every `/dashboard/*` route |
+| Schema-template picker (7 curated JSON Schema Draft 2020-12 presets) | Live in the console's New-Collection flow | `/dashboard/records` |
+| Web3 sign-in (Sign-In with Ethereum, EIP-4361) + email auth | Live, dual-mode | `/auth` |
+| In-app docs (whitepaper + NDP spec rendered in the console) | Live, linked from marketing homepage | `/dashboard/docs` |
 
-Reviewers are invited to hit the health and dashboard URLs directly; they return in under 500 ms from us-west1.
+Reviewers are invited to hit the health and dashboard URLs directly; they return in under 500 ms from us-west1. Every item above corresponds to a concrete commit on the public `main` branch (latest: `a38cc2e4` — "Ship prototype: AI Assistant, SIWE auth, schema presets, in-app docs").
 
 ## 4. Grant deliverables (12-month plan)
 
@@ -81,6 +85,11 @@ Reviewers are invited to hit the health and dashboard URLs directly; they return
   - "Migrate off Pinata / Web3.Storage in 30 minutes"
 - Sample apps published to GitHub (MIT licensed so anyone can lift them)
 - 1 recorded talk submitted to IPFS Thing / Devcon
+- **In-console AI onboarding assistant** (already live at grant submission; see §3). Grant work hardens it into an open-source component any IPFS provider can embed:
+  - System prompt + tool definitions published under Apache-2.0 so any PSA v1.0 / NDP provider can drop it into their console without being locked to NDN's Anthropic relationship.
+  - BYO-LLM: pluggable backend (Anthropic, OpenAI, local Ollama) behind one interface; the grant funds the abstraction layer, not the inference credits.
+  - Evaluation set: 50 curated "developer asks an IPFS question" prompts with expected-output JSON fixtures, so competing LLM backends can be compared on protocol-correctness rather than vibes.
+  - The assistant is explicitly a **floor-raising** tool — it turns the IPFS Pinning Services API and NDP from "read the 80-page spec" into "describe what you want and paste the result."
 
 ### 4.5 Spec contributions — $3,000
 
@@ -162,3 +171,16 @@ Post-grant (Year 2+), the public gateway and SDKs continue to be maintained as a
 - Team: [grants/TEAM.md](TEAM.md)
 - Live API health: https://ndn-api-1037328355027.us-west1.run.app/_health
 - Live dashboard: https://ndn-dashboard-1037328355027.us-west1.run.app
+- Live in-console docs (whitepaper + NDP spec): https://ndn-dashboard-1037328355027.us-west1.run.app/dashboard/docs
+
+## 12. What changed since revision 1
+
+Revision 1 (commit `4c55d987`) introduced the NDP v1.0 spec and its reference implementation. Revision 2 (commit `a38cc2e4`) hardens the developer-facing surface that the grant explicitly funds:
+
+- **AI onboarding assistant** — live in the console. Drafts JSON schemas, NDP query DSL filters, and pin snippets on request. Turns the "read the spec first" first-hour into a conversation.
+- **Schema preset picker** — seven curated JSON Schema Draft 2020-12 templates (user-profile, product, order, event-log, article, telemetry, ipfs-pin) selectable at collection-creation time with inline editing.
+- **SIWE (EIP-4361) sign-in** — the console now supports wallet auth as a first-class citizen, not just email. Critical for the web3-native developer audience the grant is written for.
+- **In-app docs** — the whitepaper and NDP protocol spec are rendered inside the console at `/dashboard/docs`, so reviewers never leave the product to evaluate the spec. Downloadable as raw markdown.
+- **Homepage → whitepaper link** — the marketing site now surfaces the whitepaper on the top nav and the primary CTA section.
+
+These are **not** pivots; they are direct executions of §4.1–§4.4 of the grant plan, shipped early to prove the execution velocity claim in §6. The grant budget is unchanged.
