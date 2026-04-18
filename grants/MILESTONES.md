@@ -169,5 +169,5 @@ If a milestone gate is not met by its scheduled month:
 
 ---
 
-*Prepared by: Ndibe Kefua, NDN Analytics*
-*Contact: nkefua@ndnanalytics.com*
+*Prepared by: Nkefua Desmond, NDN Analytics LLC*
+*Contact: nkefuan@yahoo.com · Twitter/X @dnkefua*

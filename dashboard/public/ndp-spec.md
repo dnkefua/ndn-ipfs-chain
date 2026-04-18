@@ -1,7 +1,7 @@
 # NDN Data Protocol (NDP) v1.0 — Specification
 
 **Status:** Draft for public review
-**Editor:** Ndibe Kefua — nkefua@ndnanalytics.com
+**Editor:** Nkefua Desmond — nkefuan@yahoo.com · Twitter/X [@dnkefua](https://twitter.com/dnkefua)
 **Repository:** `github.com/dnkefua/ndn-ipfs-chain`
 **License:** CC-BY 4.0 (spec) / Apache-2.0 (reference implementation)
 **Last updated:** April 2026

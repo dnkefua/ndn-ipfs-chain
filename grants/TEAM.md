@@ -1,6 +1,6 @@
 # Team
 
-## Ndibe Kefua — Founder & Sole Developer
+## Nkefua Desmond — Founder & Sole Developer
 
 **Role:** Every role. Solo developer on NDN IPFS Chain.
 
@@ -8,7 +8,7 @@
 
 The engineering practices the stack is built on — Node.js/Fastify, Postgres 16, Cloud Run, event-driven workers, multi-tenant auth + tenancy isolation, envelope encryption, tus resumable uploads — are areas the founder has worked in prior to forming NDN Analytics. The grant is not being used to learn these primitives; it is being used to turn already-shipped primitives into the **public-good layer** (SDKs, free gateway, conformance suite, tutorials, AI-assistant open-sourcing) that a commercial customer alone would not fund.
 
-> *Note to reviewers: a fuller prior-work bio (employment, prior projects, open-source contributions) is available on request — it is deliberately kept out of this public document to avoid the appearance of inflating the solo-dev framing with credentials that are not directly relevant to the grant scope. Private résumé / LinkedIn / reference introductions available on request via `nkefua@ndnanalytics.com`.*
+> *Note to reviewers: a fuller prior-work bio (employment, prior projects, open-source contributions) is available on request — it is deliberately kept out of this public document to avoid the appearance of inflating the solo-dev framing with credentials that are not directly relevant to the grant scope. Private résumé / LinkedIn / reference introductions available on request via `nkefuan@yahoo.com`.*
 
 **What I built for this project, solo, in the last 3 months:**
 - Multi-tenant Fastify REST API with JWT + API-key auth, tus resumable uploads, rate limiting, and Pinning Services v1.0–compatible surface. Live: `https://ndn-api-1037328355027.us-west1.run.app/_health`
@@ -22,9 +22,12 @@ The engineering practices the stack is built on — Node.js/Fastify, Postgres 16
 Commit history is public at `github.com/dnkefua/ndn-ipfs-chain`.
 
 **Contact:**
-- Email: nkefua@ndnanalytics.com
-- Website: https://www.ndnanalytics.com
-- GitHub: https://github.com/dnkefua
+- Primary email: nkefuan@yahoo.com
+- Secondary email: nkefua@ndnanalytics.com *(website at `ndnanalytics.com` is deliberately not published until the grant is awarded — see note below)*
+- Twitter / X: [@dnkefua](https://twitter.com/dnkefua) — "Blockchainer"
+- GitHub: [@dnkefua](https://github.com/dnkefua) — repo: [ndn-ipfs-chain](https://github.com/dnkefua/ndn-ipfs-chain)
+
+*A marketing site at `ndnanalytics.com` will be registered after grant award; before revenue, a vanity domain is not a responsible spend. All factual verification of the project today goes through the live Cloud Run URLs in §3 of the application, the public GitHub repository, and the Twitter handle above.*
 
 ---
 
@@ -65,4 +68,4 @@ If any grant reviewer believes this is under-resourced for the stated deliverabl
 ---
 
 *Last updated: April 2026*
-*Contact: nkefua@ndnanalytics.com*
+*Contact: nkefuan@yahoo.com · Twitter/X @dnkefua*

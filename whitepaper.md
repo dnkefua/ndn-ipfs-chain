@@ -433,6 +433,6 @@ Free-tier gateway access is rate-limited at 500 req/min/IP and 50 GB/month per a
 
 ---
 
-*Ndibe Kefua — Founder, NDN Analytics*
-*nkefua@ndnanalytics.com | ndnanalytics.com*
-*NDN Analytics is a founder-led company operating commercial data infrastructure since 2023. One silent partner (equity, non-operational). This white paper accompanies the IPFS Foundation Grant Application.*
+*Nkefua Desmond ("Blockchainer") — Founder, NDN Analytics LLC (Oklahoma, formed April 2026)*
+*nkefuan@yahoo.com · Twitter/X [@dnkefua](https://twitter.com/dnkefua) · GitHub [@dnkefua](https://github.com/dnkefua)*
+*NDN Analytics LLC is a founder-led, pre-revenue Oklahoma entity. One silent partner (equity, non-operational). This white paper accompanies the IPFS Foundation Grant Application.*

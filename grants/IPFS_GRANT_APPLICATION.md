@@ -2,7 +2,8 @@
 
 > **Program:** Implementations & Integrations
 > **Applicant:** NDN Analytics (sole proprietor)
-> **Contact:** Ndibe Kefua — nkefua@ndnanalytics.com — https://www.ndnanalytics.com
+> **Contact:** Nkefua Desmond — nkefuan@yahoo.com (primary) · nkefua@ndnanalytics.com · Twitter/X: @dnkefua
+> **GitHub:** https://github.com/dnkefua
 > **Repo:** https://github.com/dnkefua/ndn-ipfs-chain
 > **Request:** $50,000 over 12 months
 > **Submission date:** April 2026 (revision 2 — prototype upgrade)
@@ -122,7 +123,7 @@ These targets are deliberately calibrated to first-year reality for a solo dev w
 
 ## 6. Why us
 
-**Ndibe Kefua** — founder & sole developer, NDN Analytics LLC (Oklahoma, formed April 2026).
+**Nkefua Desmond** (Twitter/X `@dnkefua`) — founder & sole developer, NDN Analytics LLC (Oklahoma, formed April 2026).
 
 I'm going to be straightforward about what this application is and isn't, because the Foundation will find these facts anyway and I'd rather surface them than have them found.
 

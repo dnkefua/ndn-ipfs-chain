@@ -1,7 +1,7 @@
 ---
 title: "NDN Data Protocol v1.0: One Protocol for Blobs, Models, and Structured Records on IPFS"
 subtitle: "Three data planes. One canonical envelope. A bid to standardize what Pinning Services v1.0 didn't cover."
-author: Ndibe Kefua
+author: Nkefua Desmond (@dnkefua)
 date: April 18, 2026
 reading_time: "8 min"
 slug: ndn-data-protocol-v1-launch
@@ -201,4 +201,4 @@ The conformance suite (`@ndnanalytics/ndp-conformance`) is one of the primary de
 
 ---
 
-*Ndibe Kefua is the founder of NDN Analytics, building the data layer for the decentralized web. Based in Nigeria, serving teams globally. nkefua@ndnanalytics.com*
+*Nkefua Desmond ("Blockchainer") is the founder of NDN Analytics LLC (Oklahoma), building the data layer for the decentralized web. Reach out on Twitter/X [@dnkefua](https://twitter.com/dnkefua) or by email at nkefuan@yahoo.com.*

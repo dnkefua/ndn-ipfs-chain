@@ -1,7 +1,7 @@
 # Cover Letter
 
 **To:** IPFS Foundation Grants Committee
-**From:** Ndibe Kefua, Founder — NDN Analytics
+**From:** Nkefua Desmond, Founder — NDN Analytics LLC
 **Re:** Implementations & Integrations grant application — NDN IPFS Chain
 **Date:** April 2026
 
@@ -25,8 +25,8 @@ Thank you for reviewing. I'm glad to answer any questions or demo any part of th
 
 Best regards,
 
-**Ndibe Kefua**
-Founder, NDN Analytics
-nkefua@ndnanalytics.com
-https://www.ndnanalytics.com
-https://github.com/dnkefua/ndn-ipfs-chain
+**Nkefua Desmond** — Blockchainer
+Founder, NDN Analytics LLC (Oklahoma)
+nkefuan@yahoo.com · nkefua@ndnanalytics.com
+Twitter / X: [@dnkefua](https://twitter.com/dnkefua)
+GitHub: [github.com/dnkefua/ndn-ipfs-chain](https://github.com/dnkefua/ndn-ipfs-chain)

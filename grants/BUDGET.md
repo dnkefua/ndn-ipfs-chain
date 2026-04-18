@@ -84,7 +84,7 @@ Findings + remediation summary published publicly at `github.com/dnkefua/ndn-ipf
 | Item | Cost |
 |---|---:|
 | `ndnipfs.com` domain registration (10-year) | $180 |
-| Google Workspace (nkefua@ndnanalytics.com is existing; grant admin mailbox) | $120 |
+| Google Workspace mailbox on the project domain (set up at grant kickoff for grant admin correspondence) | $120 |
 | Monitoring (Sentry + Uptime Robot) — pro-rated grant share | $600 |
 | GitHub Actions minutes (public repos) | $300 |
 | Misc tooling | $300 |
@@ -140,5 +140,5 @@ Missed milestones → 60-day cure period → if not cured, subsequent payments p
 
 ---
 
-*Prepared by: Ndibe Kefua, NDN Analytics*
-*Contact: nkefua@ndnanalytics.com*
+*Prepared by: Nkefua Desmond, NDN Analytics LLC*
+*Contact: nkefuan@yahoo.com · Twitter/X @dnkefua*

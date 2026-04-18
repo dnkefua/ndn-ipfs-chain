@@ -8,9 +8,9 @@ info:
     first-class extensions for encryption, lifecycle, smart-contract triggers,
     analytics, and teams.
   contact:
-    name: NDN Analytics
-    url: https://www.ndnanalytics.com
-    email: support@ndnanalytics.com
+    name: NDN Analytics LLC
+    url: https://github.com/dnkefua/ndn-ipfs-chain
+    email: nkefuan@yahoo.com
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
