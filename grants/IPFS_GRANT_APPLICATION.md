@@ -122,13 +122,19 @@ These targets are deliberately calibrated to first-year reality for a solo dev w
 
 ## 6. Why us
 
-**Ndibe Kefua** — founder & sole developer, NDN Analytics.
+**Ndibe Kefua** — founder & sole developer, NDN Analytics LLC (Oklahoma, formed April 2026).
 
-- Running commercial infrastructure at NDN Analytics since 2023 (pharma provenance / TraceChain product, healthcare data pipelines). That revenue funds ~80% of NDN IPFS Chain today and will continue to after the grant period ends.
-- Built the entire current NDN IPFS Chain stack (API, dashboard, migrations, HuggingFace importer, deployment pipeline) solo across ~3 months. Every URL in §3 is traceable to a single commit history.
-- One silent partner (equity holder, non-operational) — no day-to-day involvement in grant work.
+I'm going to be straightforward about what this application is and isn't, because the Foundation will find these facts anyway and I'd rather surface them than have them found.
 
-I'm not going to claim credentials I don't have. What I have is execution velocity and a live-shipped stack; that's what this application is backed by. See `grants/TEAM.md` for the full bio and a list of what's still open (advisory, DevRel contractor, etc.).
+**What I am:** a solo developer who, over roughly three months, shipped a production-deployed IPFS platform — multi-tenant Fastify API with a Pinning Services v1.0–compatible surface, Next.js 14 console, HuggingFace model importer, Postgres 16 schema on Cloud SQL, the NDP v1.0 specification document, a live reference implementation across three data planes, a working in-console AI onboarding assistant, SIWE wallet auth, and full GCP deployment pipeline. Every URL in §3 resolves. Every feature in the dashboard is traceable to a single public commit history. The repository and all derived artifacts are Apache-2.0.
+
+**What I am not:** an operator with existing commercial revenue. NDN Analytics LLC was registered in Oklahoma this month; it has no current customers and no revenue subsidizing this work. The grant is not a top-up on an existing budget — it is the seed that funds the public-good deliverables (SDKs, public gateway, conformance suite, docs, AI-assistant open-sourcing) during a 12-month window while the commercial side of the platform (enterprise pinning, lifecycle, Filecoin, AI model registry) is brought to first revenue.
+
+I have one silent partner — equity holder, no operational involvement, aware of and signed off on this application.
+
+**What I'm backed by:** execution velocity and a shipped stack, not claims I can't substantiate. The commit graph is the résumé. If that isn't sufficient signal on its own, this grant isn't the right fit and I'd rather the Foundation fund someone who clears the bar on both dimensions. If it is sufficient signal, the $50K / 12-month / milestone-gated structure turns that velocity into public-good infrastructure the whole ecosystem uses.
+
+See `grants/TEAM.md` for the full bio, the roles deliberately left open, and an honest account of what this entity can and can't do today.
 
 ## 7. Disbursement schedule (milestone-gated)
 
@@ -157,9 +163,20 @@ Missed milestones trigger a 60-day cure period; failure to cure → remaining fu
 
 ## 10. Sustainability after the grant
 
-The grant is explicitly **not** a runway subsidy. NDN Analytics' commercial business covers operating costs today and will continue to after the grant period. Grant funds are earmarked specifically for public-good outputs (SDKs, gateway, docs, conformance suite) that accelerate IPFS adoption beyond what NDN's commercial customers would directly fund.
+NDN Analytics LLC has no current commercial revenue — the entity was formed this month. The grant is therefore being treated as the **seed funding** for the public-good workstream, not as a top-up to an existing budget. Post-grant sustainability depends on the commercial side of the platform — enterprise pinning tiers, managed Filecoin, AI model registry, and lifecycle tooling — reaching first paying customers during the 12-month grant window. The path to that is concrete:
 
-Post-grant (Year 2+), the public gateway and SDKs continue to be maintained as a permanent line item in NDN Analytics' operating budget. If the Foundation wishes to re-engage for Year-2 scope (more regions, deeper Filecoin proofs, AI-model-registry standardization), we'd be glad to submit a follow-on proposal backed by the Y1 numbers.
+1. **Months 1–6 — ship the public-good primitives** funded by this grant (SDKs, free gateway, conformance suite, tutorials, AI assistant open-sourcing). These are reviewed openly and are the primary grant deliverables.
+2. **Months 3–12 — convert downstream demand into commercial pilots.** The SDKs and gateway create a funnel; enterprise pricing is live on the dashboard from day 1. A realistic target is 2–5 paying pilot accounts by M12 at $2K–$10K/mo each.
+3. **Year 2+ — self-fund the public-good line items** (gateway infrastructure, docs hosting, SDK maintenance) from commercial ARR. These are low-cost-per-user workloads; a small number of paying accounts is enough to sustain them.
+
+**Honest failure mode:** if the commercial side does not reach first revenue by M12, the public-good primitives delivered under this grant remain intact and Apache-2.0 — they would simply need a follow-on maintainer or a Y2 grant. The code, specs, and conformance suite outlive the entity that produced them. This is why the open-source + spec-contribution framing of the grant matters: the Foundation's investment creates durable public goods even in the downside case.
+
+**If the Foundation prefers risk-reducing structure,** I am open to:
+- A smaller Tranche 1 (e.g. $10K–$15K at M1 instead of $15K) to validate execution before larger tranches vest.
+- A hard pause-and-review clause at M6 if milestone metrics are behind plan.
+- Returning any unspent portion at grant end (contingency in particular) rather than treating it as indirect overhead.
+
+Year 2 scope — more regions, deeper Filecoin proofs, AI-model-registry standardization — would be submitted as a separate follow-on proposal backed by Y1 delivery numbers and, ideally, commercial ARR evidence.
 
 ## 11. Appendix
 

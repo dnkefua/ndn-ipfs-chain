@@ -4,11 +4,11 @@
 
 **Role:** Every role. Solo developer on NDN IPFS Chain.
 
-**Background:** Founder of NDN Analytics, operating commercial infrastructure since 2023. Primary lines of business:
-- **TraceChain** — pharmaceutical provenance (serialization + chain-of-custody, running in production).
-- **Healthcare-data pipelines** — ingestion, normalization, and analytics for healthcare providers.
+**Background:** Founder of NDN Analytics LLC, an Oklahoma entity registered in April 2026. The company is early-stage and pre-revenue. NDN IPFS Chain is its first shipping product; the commercial tiers (enterprise pinning, managed Filecoin, AI model registry, lifecycle) are live on the dashboard but do not yet have paying customers.
 
-Those commercial products run on the same foundational engineering practices that NDN IPFS Chain is built on (Node.js, Postgres, Kubernetes, Cloud Run, event-driven workers, strong auth + tenancy isolation). The commercial revenue directly subsidizes ~80% of NDN IPFS Chain's operating cost, which is why the grant ask is scoped to **public-good deliverables only** rather than to total project cost.
+The engineering practices the stack is built on — Node.js/Fastify, Postgres 16, Cloud Run, event-driven workers, multi-tenant auth + tenancy isolation, envelope encryption, tus resumable uploads — are areas the founder has worked in prior to forming NDN Analytics. The grant is not being used to learn these primitives; it is being used to turn already-shipped primitives into the **public-good layer** (SDKs, free gateway, conformance suite, tutorials, AI-assistant open-sourcing) that a commercial customer alone would not fund.
+
+> *Note to reviewers: a fuller prior-work bio (employment, prior projects, open-source contributions) is available on request — it is deliberately kept out of this public document to avoid the appearance of inflating the solo-dev framing with credentials that are not directly relevant to the grant scope. Private résumé / LinkedIn / reference introductions available on request via `nkefua@ndnanalytics.com`.*
 
 **What I built for this project, solo, in the last 3 months:**
 - Multi-tenant Fastify REST API with JWT + API-key auth, tus resumable uploads, rate limiting, and Pinning Services v1.0–compatible surface. Live: `https://ndn-api-1037328355027.us-west1.run.app/_health`
@@ -36,15 +36,15 @@ One silent partner holds equity in NDN Analytics and is aware of this grant subm
 
 ## What's deliberately open — not-yet-hired roles
 
-The grant does not fund hiring. These roles are acknowledged as gaps that the commercial business will fill as revenue grows, not as positions this grant is expected to cover:
+The grant does not fund hiring. These roles are acknowledged as gaps that would be filled post-grant, contingent on commercial revenue or a follow-on grant — not positions this grant is expected to cover:
 
 | Role | Gap | Y2 plan |
 |---|---|---|
-| DevRel / technical writer | Tutorials and docs will be founder-written in Y1; a DevRel contractor is on the Y2 wishlist | Commercial revenue or follow-on grant |
+| DevRel / technical writer | Tutorials and docs are founder-written in Y1; a DevRel contractor is on the Y2 wishlist | Commercial revenue or follow-on grant |
 | Security researcher | One-time third-party audit is budgeted (see BUDGET §2.3); no in-house security hire | Y2 retainer if scale warrants |
-| Gateway SRE | Solo founder on-call for gateway in Y1; autoscaling + alerting sized so one person can sustain 99.95% | Hire when gateway clients > 250K/mo |
+| Gateway SRE | Solo founder on-call for the gateway in Y1; autoscaling + alerting sized so one person can sustain 99.95% | Hire when gateway clients exceed 250K/mo |
 
-If any grant reviewer believes this is under-resourced for the stated deliverables, I'd rather have that conversation before the award than after. The whole point of the $50K / solo-dev framing is to match the ask to what can honestly be delivered.
+If any grant reviewer believes this is under-resourced for the stated deliverables, I would rather have that conversation before the award than after. The whole point of the $50K / solo-dev framing is to match the ask to what can honestly be delivered by one engineer over 12 months, with no padding for a team that does not yet exist.
 
 ---
 

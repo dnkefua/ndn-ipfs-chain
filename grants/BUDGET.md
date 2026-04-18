@@ -10,7 +10,7 @@
 
 | Category | Amount | % of grant | Rationale |
 |---|---:|---:|---|
-| Founder engineering stipend | $20,000 | 40% | Part-time on grant scope; remainder of solo-dev time funded by NDN Analytics commercial revenue |
+| Founder engineering stipend | $20,000 | 40% | ~20 hrs/wk × 50 wks on grant-scope deliverables at $20/hr (well below market) |
 | Public gateway infrastructure | $12,000 | 24% | Cloudflare Workers, anycast DNS, egress, 3 regional PoPs |
 | Security audit (SDKs + API) | $7,000 | 14% | One third-party review at M2, fix-and-reverify |
 | Filecoin deals (pilot storage) | $3,000 | 6% | 500 GB × 6 months via FIL+ with 3 SP partners |
@@ -30,10 +30,10 @@
 |---|---|
 | Hours dedicated to grant scope | ~20 hrs/week × 50 weeks ≈ 1,000 hrs |
 | Effective rate | $20/hr on grant scope — well below market |
-| Commercial-business offset | NDN Analytics pays the founder's primary salary; this stipend specifically compensates time spent on **public-good deliverables** (SDKs, gateway, docs, conformance suite) that commercial customers don't pay for |
+| Scope boundary | Stipend compensates time spent on **public-good deliverables only** (SDKs, gateway, docs, conformance suite, AI-assistant open-sourcing). Time spent on commercial-tier features (enterprise pinning plans, private AI model hosting, etc.) is **not** charged against the grant. |
 | Documentation | Timesheet + PR links submitted with each milestone report |
 
-The stipend is deliberately set below market rate. It is a cost-recovery allocation, not a full salary — the Foundation is not paying for a 4-FTE fiction, it is paying for the incremental hours a solo dev can redirect from commercial work to public-good work over 12 months.
+The stipend is deliberately set below market rate. NDN Analytics LLC is pre-revenue (entity registered April 2026), so the Foundation is not paying a fraction of an existing founder salary — the grant stipend is the founder's full compensation for grant-scope work over 12 months. Personal runway outside grant-scope hours is the founder's responsibility and is not part of this ask. If the commercial side of the platform reaches first revenue during the grant period, any commercial-tier work happens on the founder's own time and does not draw on grant funds.
 
 ### 2.2 Public gateway infrastructure — $12,000
 
@@ -104,13 +104,13 @@ One trip to IPFS Thing or Devcon (flight + hotel + registration) to deliver a 20
 
 To be upfront about scope boundaries:
 
-- **Founder's primary salary** — covered by NDN Analytics commercial revenue (pharma + healthcare-data customers).
-- **Main NDN Analytics infrastructure** — existing Cloud Run / Cloud SQL / Secret Manager spend for the commercial product, paid by commercial revenue.
+- **Founder's non-grant-scope time** — personal runway during the grant period is the founder's responsibility and outside this ask.
+- **Existing NDN Analytics infrastructure** — the Cloud Run / Cloud SQL / Secret Manager spend for the commercial-tier side of the platform (enterprise pinning, AI model registry, etc.) is modest at pre-revenue scale and is the founder's personal cost, not a grant line item.
 - **Marketing beyond docs + one conference** — no paid ads, no PR firm, no sponsored content.
-- **Legal incorporation** — NDN Analytics is an existing entity.
-- **Hiring** — no FTE hires funded by this grant. If Year-2 scales, hiring is a Year-2 proposal.
+- **Legal incorporation** — NDN Analytics LLC was registered in Oklahoma in April 2026; formation fees were paid pre-application and are not part of this ask.
+- **Hiring** — no FTE hires funded by this grant. If Year-2 scales, hiring is a Year-2 proposal contingent on commercial revenue or a follow-on grant.
 
-If any of these items need coverage during the grant period, I will cover them from commercial revenue or defer them, not expand the grant ask.
+If any of these items need coverage during the grant period, they will be deferred or covered out-of-pocket — not rolled into the grant ask.
 
 ---
 
