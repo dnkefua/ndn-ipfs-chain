@@ -41,6 +41,9 @@ CLAUDE.md
 # Docs that don't need to ship
 *.md
 !package.json/README.md
+!dashboard/public/whitepaper/
+!dashboard/public/ndp-spec.md
+!dashboard/public/whitepaper.md
 
 # Tests / scratch
 tests/
@@ -68,4 +71,3 @@ mcp/
 grants/
 marketing/
 scripts/
-specs/

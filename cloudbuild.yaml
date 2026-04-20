@@ -1,111 +1,28 @@
 # Google Cloud Build Configuration
-# Automatically builds and deploys NDN IPFS Chain to Cloud Run
+# Automatically builds and deploys NDN IPFS Chain Dashboard to Cloud Run 
 
 steps:
-  # Step 1: Build API Server image
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'build-api'
-    args:
-      - 'build'
-      - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:${SHORT_SHA}'
-      - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:latest'
-      - 'api/server/'
-    env:
-      - 'DOCKER_BUILDKIT=1'
-
-  # Step 2: Push API image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'push-api'
-    args:
-      - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:${SHORT_SHA}'
-
-  # Step 3: Build Dashboard image
+  # Build Dashboard image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-dashboard'
     args:
       - 'build'
       - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:${SHORT_SHA}'
-      - '-t'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:latest'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
       - 'dashboard/'
     env:
       - 'DOCKER_BUILDKIT=1'
 
-  # Step 4: Push Dashboard image
+  # Push Dashboard image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'push-dashboard'
     args:
       - 'push'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:${SHORT_SHA}'
-
-  # Step 5: Deploy API to Cloud Run
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'deploy-api'
-    args:
-      - 'run'
-      - '--filename=gcp/k8s/'
-      - '--image=ndn-api=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:${SHORT_SHA}'
-      - '--location=${_REGION}'
-      - '--namespace=ndn-prod'
-
-  # Step 6: Deploy Dashboard to Cloud Run
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'deploy-dashboard'
-    args:
-      - 'run'
-      - '--filename=gcp/k8s/'
-      - '--image=ndn-dashboard=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:${SHORT_SHA}'
-      - '--location=${_REGION}'
-      - '--namespace=ndn-prod'
-
-  # Step 7: Run integration tests
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'run-tests'
-    args:
-      - 'run'
-      - '--rm'
-      - '-e'
-      - 'API_URL=https://$_API_SERVICE.run.app'
-      - '-e'
-      - 'API_KEY=$_TEST_API_KEY'
-      - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-tests:${SHORT_SHA}'
-      - 'npm'
-      - 'test'
-
-  # Step 8: Notify deployment complete
-  - name: 'gcr.io/cloud-builders/gke-deploy'
-    id: 'verify-deployment'
-    args:
-      - 'run'
-      - '--filename=gcp/verify-deployment.yaml'
-      - '--location=${_REGION}'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
 
 # Images to push to Artifact Registry
 images:
-  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:${SHORT_SHA}'
-  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-api:latest'
-  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:${SHORT_SHA}'
-  - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REGISTRY}/ndn-dashboard:latest'
-
-# Artifacts to store
-artifacts:
-  objects:
-    location: 'gs://${_ARTIFACT_BUCKET}/builds/${BUILD_ID}'
-    paths:
-      - 'deployment-log.txt'
-
-# Substitution variables (configure these)
-substitutions:
-  _REGION: 'us-west1'
-  _REGISTRY: 'ndn-ipfs'
-  _API_SERVICE: 'ndn-api'
-  _DASHBOARD_SERVICE: 'ndn-dashboard'
-  _ARTIFACT_BUCKET: '${PROJECT_ID}-build-artifacts'
-  _TEST_API_KEY: 'test-key'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
 
 # Build options
 options:
@@ -114,10 +31,6 @@ options:
 
 # Timeout for entire build (30 minutes)
 timeout: '1800s'
-
-# Only trigger on main branch
-onPush:
-  branch: '^main$'
 
 # Or trigger manually:
 # gcloud builds submit --config cloudbuild.yaml
