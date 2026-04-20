@@ -76,7 +76,7 @@ export default function Landing() {
           <div className="hidden md:flex items-center gap-8 text-sm text-slate-600 dark:text-slate-400">
             <a href="#features" className="hover:text-brand-600 transition">Features</a>
             <a href="#compare" className="hover:text-brand-600 transition">Compare</a>
-            <Link href="/dashboard/docs" className="hover:text-brand-600 transition">Whitepaper</Link>
+            <Link href="/whitepaper/" className="hover:text-brand-600 transition">Whitepaper</Link>
             <a href="https://docs.ndnanalytics.com" className="hover:text-brand-600 transition">Docs</a>
             <a
               href="https://ndn-api-1037328355027.us-west1.run.app/docs"
@@ -223,7 +223,7 @@ export default function Landing() {
               Open the console
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="/dashboard/docs" className="btn-secondary text-base px-8 py-3 inline-flex">
+            <Link href="/whitepaper/" className="btn-secondary text-base px-8 py-3 inline-flex">
               Read the white paper
             </Link>
           </div>

@@ -38,7 +38,9 @@ const NAV_ITEMS = [
   { href: '/dashboard/api-keys',        label: 'API Keys', icon: KeyRound },
   { href: '/dashboard/billing',         label: 'Billing',  icon: CreditCard },
   // Docs
-  { href: '/dashboard/docs',            label: 'Docs',     icon: BookOpen,   section: 'Docs' },
+  { href: '/dashboard/docs',            label: 'Docs',       icon: BookOpen,   section: 'Docs' },
+  { href: '/whitepaper/',               label: 'Whitepaper', icon: FileJson }, // Reusing FileJson or adding another
+
 ];
 
 interface DiscoveryInfo {
