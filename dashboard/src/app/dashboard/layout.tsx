@@ -39,7 +39,7 @@ const NAV_ITEMS = [
   { href: '/dashboard/billing',         label: 'Billing',  icon: CreditCard },
   // Docs
   { href: '/dashboard/docs',            label: 'Docs',       icon: BookOpen,   section: 'Docs' },
-  { href: '/whitepaper/',               label: 'Whitepaper', icon: FileJson }, // Reusing FileJson or adding another
+  { href: '/whitepaper/index.html',     label: 'Whitepaper', icon: FileJson }, // Reusing FileJson or adding another
 
 ];
 

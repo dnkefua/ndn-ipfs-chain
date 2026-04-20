@@ -48,12 +48,12 @@ export default function DocsPage() {
           >
             NDP Spec
           </a>
-          <Link
+          <a
             href="/whitepaper/index.html"
             className="px-2 py-1 rounded-md border border-brand-300 dark:border-brand-700 text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20 font-medium"
           >
             View Interactive
-          </Link>
+          </a>
           <a
             href="/whitepaper.md"
             download
