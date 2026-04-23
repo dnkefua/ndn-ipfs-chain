@@ -1,15 +1,41 @@
 # Google Cloud Build Configuration
-# Automatically builds and deploys NDN IPFS Chain Dashboard to Cloud Run 
+# Builds and deploys NDN IPFS Chain API and Dashboard to Cloud Run
 
 steps:
+  # Build API Server image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-api'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
+      - 'api/server/'
+      - '--build-arg'
+      - 'NODE_ENV=production'
+    env:
+      - 'DOCKER_BUILDKIT=1'
+
+  # Push API Server image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-api'
+    args:
+      - 'push'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+
   # Build Dashboard image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-dashboard'
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
       - 'dashboard/'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_API_URL=https://ndn-api-1037328355027.us-west1.run.app'
     env:
       - 'DOCKER_BUILDKIT=1'
 
@@ -18,11 +44,72 @@ steps:
     id: 'push-dashboard'
     args:
       - 'push'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+
+  # Deploy API to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-api'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ndn-ipfs-api'
+      - '--image'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+      - '--region'
+      - 'us-west1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'NODE_ENV=production,LOG_LEVEL=info'
+      - '--set-secrets'
+      - 'DATABASE_URL=DATABASE_URL:latest,JWT_SECRET=JWT_SECRET:latest,CLUSTER_AUTH=CLUSTER_AUTH:latest,REDIS_URL=REDIS_URL:latest'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '4Gi'
+      - '--concurrency'
+      - '80'
+      - '--timeout'
+      - '300'
+      - '--health-cmd'
+      - 'curl -f http://localhost:3000/_health || exit 1'
+      - '--health-startup-period'
+      - '60s'
+
+  # Deploy Dashboard to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-dashboard'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ndn-dashboard'
+      - '--image'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+      - '--region'
+      - 'us-west1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'NEXT_PUBLIC_API_URL=https://ndn-api-1037328355027.us-west1.run.app,NODE_ENV=production'
+      - '--cpu'
+      - '1'
+      - '--memory'
+      - '2Gi'
+      - '--concurrency'
+      - '80'
+      - '--timeout'
+      - '60'
 
 # Images to push to Artifact Registry
 images:
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
 
 # Build options
 options:
@@ -32,5 +119,10 @@ options:
 # Timeout for entire build (30 minutes)
 timeout: '1800s'
 
-# Or trigger manually:
-# gcloud builds submit --config cloudbuild.yaml
+# Substitutions
+substitutions:
+  _REGION: us-west1
+
+# Replace $COMMIT_SHA with actual commit SHA
+tags:
+  - '$COMMIT_SHA'
