@@ -5,9 +5,9 @@
 .git
 .gitignore
 
-# Docker
+# Docker (keep Dockerfiles, they're needed for builds)
 .dockerignore
-Dockerfile
+# Note: Dockerfiles in api/server/ and dashboard/ are kept
 
 # Documentation
 *.md
