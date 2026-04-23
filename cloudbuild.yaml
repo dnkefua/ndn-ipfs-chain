@@ -2,17 +2,18 @@
 # Builds and deploys NDN IPFS Chain API and Dashboard to Cloud Run
 
 steps:
-  # Build API Server image
+  # Build API Server image (build context is repo root, Dockerfile path is relative)
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-api'
-    dir: 'api/server'
     args:
       - 'build'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
-      - '.'
+      - '-f'
+      - 'api/server/Dockerfile'
+      - 'api/server'
       - '--build-arg'
       - 'NODE_ENV=production'
 
@@ -23,17 +24,18 @@ steps:
       - 'push'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
 
-  # Build Dashboard image
+  # Build Dashboard image (build context is repo root, Dockerfile path is relative)
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-dashboard'
-    dir: 'dashboard'
     args:
       - 'build'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
-      - '.'
+      - '-f'
+      - 'dashboard/Dockerfile'
+      - 'dashboard'
       - '--build-arg'
       - 'NEXT_PUBLIC_API_URL=https://ndn-api-1037328355027.us-west1.run.app'
 
