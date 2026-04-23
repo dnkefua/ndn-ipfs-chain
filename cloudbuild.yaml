@@ -11,9 +11,9 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:${COMMIT_SHA}'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:latest'
       - '-f'
       - 'api/server/Dockerfile'
       - 'api/server'
@@ -25,7 +25,7 @@ steps:
     id: 'push-api'
     args:
       - 'push'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:${COMMIT_SHA}'
 
   # Build Dashboard image (build context is repo root, Dockerfile path is relative)
   - name: 'gcr.io/cloud-builders/docker'
@@ -33,9 +33,9 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:${COMMIT_SHA}'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
       - '-f'
       - 'dashboard/Dockerfile'
       - 'dashboard'
@@ -47,7 +47,7 @@ steps:
     id: 'push-dashboard'
     args:
       - 'push'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:${COMMIT_SHA}'
 
   # Deploy API to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -58,7 +58,7 @@ steps:
       - 'deploy'
       - 'ndn-ipfs-api'
       - '--image'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:${COMMIT_SHA}'
       - '--region'
       - 'us-west1'
       - '--platform'
@@ -90,7 +90,7 @@ steps:
       - 'deploy'
       - 'ndn-dashboard'
       - '--image'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
+      - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:${COMMIT_SHA}'
       - '--region'
       - 'us-west1'
       - '--platform'
@@ -109,10 +109,10 @@ steps:
 
 # Images to push to Artifact Registry
 images:
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
+  - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:${COMMIT_SHA}'
+  - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-api:latest'
+  - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:${COMMIT_SHA}'
+  - 'us-west1-docker.pkg.dev/ndn-ipfs-chain-493611/ndn-ipfs/ndn-dashboard:latest'
 
 # Build options
 options:
