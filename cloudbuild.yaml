@@ -8,7 +8,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
       - '-f'
@@ -22,7 +22,7 @@ steps:
     id: 'push-api'
     args:
       - 'push'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
 
   # Build Dashboard image (build context is repo root, Dockerfile path is relative)
   - name: 'gcr.io/cloud-builders/docker'
@@ -30,7 +30,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
       - '-f'
@@ -44,7 +44,7 @@ steps:
     id: 'push-dashboard'
     args:
       - 'push'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
 
   # Deploy API to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -55,7 +55,7 @@ steps:
       - 'deploy'
       - 'ndn-ipfs-api'
       - '--image'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
       - '--region'
       - 'us-west1'
       - '--platform'
@@ -87,7 +87,7 @@ steps:
       - 'deploy'
       - 'ndn-dashboard'
       - '--image'
-      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+      - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
       - '--region'
       - 'us-west1'
       - '--platform'
@@ -106,9 +106,9 @@ steps:
 
 # Images to push to Artifact Registry
 images:
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:${COMMIT_SHA}'
   - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
-  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
+  - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:${COMMIT_SHA}'
   - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
 
 # Build options
