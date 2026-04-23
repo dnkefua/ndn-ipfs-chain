@@ -1,0 +1,57 @@
+# Ignore files that are not needed for the build
+# and would slow down the upload to Cloud Build
+
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Documentation
+*.md
+docs/
+White\ Paper/
+
+# Tests
+tests/
+*.test.ts
+*.test.js
+
+# Local development
+.env
+.env.local
+.env.*.local
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/
+memory/
+
+# Other
+cloudbuild.yaml
+scripts/
+competition/
+grants/
+implementations/
+mcp/
+pricing/
+samples/
+sdks/
+specs/
+status/
+storage/
+workers/
+gateway/
+architecture/

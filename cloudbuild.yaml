@@ -5,17 +5,16 @@ steps:
   # Build API Server image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-api'
+    dir: 'api/server'
     args:
       - 'build'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:$COMMIT_SHA'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-ipfs-api:latest'
-      - 'api/server/'
+      - '.'
       - '--build-arg'
       - 'NODE_ENV=production'
-    env:
-      - 'DOCKER_BUILDKIT=1'
 
   # Push API Server image
   - name: 'gcr.io/cloud-builders/docker'
@@ -27,17 +26,16 @@ steps:
   # Build Dashboard image
   - name: 'gcr.io/cloud-builders/docker'
     id: 'build-dashboard'
+    dir: 'dashboard'
     args:
       - 'build'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:$COMMIT_SHA'
       - '-t'
       - 'gcr.io/ndn-ipfs-chain-493611/ndn-dashboard:latest'
-      - 'dashboard/'
+      - '.'
       - '--build-arg'
       - 'NEXT_PUBLIC_API_URL=https://ndn-api-1037328355027.us-west1.run.app'
-    env:
-      - 'DOCKER_BUILDKIT=1'
 
   # Push Dashboard image
   - name: 'gcr.io/cloud-builders/docker'
@@ -113,16 +111,8 @@ images:
 
 # Build options
 options:
-  machineType: 'N1_HIGHCPU_8'
+  machineType: 'E2_HIGHCPU_8'
   logging: CLOUD_LOGGING_ONLY
 
 # Timeout for entire build (30 minutes)
 timeout: '1800s'
-
-# Substitutions
-substitutions:
-  _REGION: us-west1
-
-# Replace $COMMIT_SHA with actual commit SHA
-tags:
-  - '$COMMIT_SHA'
