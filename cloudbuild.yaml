@@ -1,6 +1,9 @@
 # Google Cloud Build Configuration
 # Builds and deploys NDN IPFS Chain API and Dashboard to Cloud Run
 
+# Note: COMMIT_SHA must be provided via --substitutions=COMMIT_SHA=$(git rev-parse --short HEAD)
+# or via a Cloud Build trigger which provides it automatically
+
 steps:
   # Build API Server image (build context is repo root, Dockerfile path is relative)
   - name: 'gcr.io/cloud-builders/docker'
