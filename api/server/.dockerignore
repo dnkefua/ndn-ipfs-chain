@@ -1,0 +1,37 @@
+# Dependencies (will be reinstalled in container)
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Tests
+../tests/
+*.test.ts
+*.test.js
+
+# Documentation
+../docs/
+"../White Paper/"
+*.md
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+.next/
+dist/
+build/
