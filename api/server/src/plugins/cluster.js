@@ -9,11 +9,15 @@ export const clusterPlugin = fp(async (app) => {
   const clusterApi = process.env.CLUSTER_API_URL ?? 'http://cluster:9094';
 
   async function clusterRequest(path, init = {}) {
+    const clusterAuth = process.env.CLUSTER_AUTH;
+    if (!clusterAuth) {
+      throw new Error('CLUSTER_AUTH environment variable is required. Generate one with: node scripts/generate-secrets.js');
+    }
     const res = await fetch(`${clusterApi}${path}`, {
       ...init,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${Buffer.from(process.env.CLUSTER_AUTH ?? 'admin:admin').toString('base64')}`,
+        Authorization: `Basic ${Buffer.from(clusterAuth).toString('base64')}`,
         ...init.headers,
       },
     });

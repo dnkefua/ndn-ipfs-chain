@@ -2,10 +2,13 @@ import fp from 'fastify-plugin';
 import { SiweMessage } from 'siwe';
 
 // Hybrid auth: X-API-Key, JWT Bearer, or Sign-In With Ethereum.
-// Sandbox server skips auth entirely (NODE_ENV=sandbox).
+// Sandbox mode (NODE_ENV=sandbox) requires explicit SANDBOX_MODE=true env var.
 export const authPlugin = fp(async (app) => {
   app.decorate('authenticate', async function (req, reply) {
-    if (process.env.NODE_ENV === 'sandbox') {
+    // Sandbox mode requires BOTH NODE_ENV=sandbox AND explicit SANDBOX_MODE=true
+    // This prevents accidental auth bypass in production
+    if (process.env.NODE_ENV === 'sandbox' && process.env.SANDBOX_MODE === 'true') {
+      app.log.warn({ path: req.url }, 'Sandbox mode: authentication bypassed');
       req.user = { tenant: 'sandbox', scopes: ['*'] };
       return;
     }

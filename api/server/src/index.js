@@ -33,14 +33,71 @@ const app = Fastify({
   bodyLimit: 1024 * 1024 * 1024, // 1 GiB — larger uploads use tus
 });
 
-await app.register(helmet, { contentSecurityPolicy: false });
-await app.register(cors, { origin: true });
-await app.register(rateLimit, {
-  max: Number(process.env.RATE_LIMIT_MAX ?? 600),
-  timeWindow: '1 minute',
-  keyGenerator: (req) => req.headers['x-api-key'] ?? req.ip,
+// Security headers with proper CSP
+await app.register(helmet, {
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"], // Required for Swagger UI
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", process.env.NEXT_PUBLIC_API_URL ?? 'https://api.ndnipfs.com'],
+      frameSrc: ["'none'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  },
 });
-await app.register(jwt, { secret: process.env.JWT_SECRET ?? 'dev-secret-change-me' });
+
+// CORS configuration - restrict to allowed origins
+const corsOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : ['https://app.ndnipfs.com'];
+
+await app.register(cors, {
+  origin: function (origin, cb) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return cb(null, true);
+    if (corsOrigins.includes(origin)) return cb(null, true);
+    app.log.warn({ origin }, 'CORS origin not allowed');
+    return cb(new Error('Not allowed by CORS'));
+  },
+  credentials: process.env.CORS_CREDENTIALS === 'true',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Request-ID'],
+  exposedHeaders: ['X-Request-ID', 'X-RateLimit-Limit', 'X-RateLimit-Remaining'],
+});
+// Per-tenant rate limiting with fallback to IP
+await app.register(rateLimit, {
+  max: Number(process.env.RATE_LIMIT_MAX ?? 1000),
+  timeWindow: '1 minute',
+  keyGenerator: (req) => {
+    // Use tenant ID from authenticated user if available
+    if (req.user?.tenant) {
+      return `tenant:${req.user.tenant}`;
+    }
+    // Fall back to API key hash or IP
+    const apiKey = req.headers['x-api-key'];
+    if (apiKey) {
+      const { createHash } = await import('node:crypto');
+      return `apikey:${createHash('sha256').update(apiKey).digest('hex').slice(0, 16)}`;
+    }
+    return `ip:${req.ip}`;
+  },
+  allowList: ['127.0.0.1', '::1'], // Allow localhost for health checks
+  continueExceeding: true, // Process request even if limit exceeded (just return 429)
+});
+const jwtSecret = process.env.JWT_SECRET;
+if (!jwtSecret) {
+  throw new Error('JWT_SECRET environment variable is required. Generate one with: node scripts/generate-secrets.js');
+}
+await app.register(jwt, { secret: jwtSecret });
 await app.register(multipart, { limits: { fileSize: 1024 * 1024 * 1024 } });
 
 // OpenAPI docs at /docs

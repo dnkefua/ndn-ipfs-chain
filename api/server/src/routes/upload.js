@@ -3,6 +3,8 @@ import { FileStore } from '@tus/file-store';
 import { createHash, randomBytes, createCipheriv } from 'node:crypto';
 import { Readable } from 'node:stream';
 import fs from 'node:fs';
+import { z } from 'zod';
+import { validate, uploadRequestSchema, tusMetadataSchema } from '../lib/validators.js';
 
 export default async function uploadRoutes(app) {
   app.addHook('onRequest', app.authenticate);
@@ -17,6 +19,19 @@ export default async function uploadRoutes(app) {
     }
     if (!fileStream) return reply.code(400).send({ error: 'file_required' });
 
+    // Validate fields using zod
+    try {
+      uploadRequestSchema.parse(fields);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.code(400).send({
+          error: 'validation_error',
+          details: error.errors.map(e => ({ field: e.path.join('.'), message: e.message })),
+        });
+      }
+      throw error;
+    }
+
     const encryption = fields.encryption === 'true';
     let keyMaterial, iv;
     if (encryption) {
@@ -26,19 +41,35 @@ export default async function uploadRoutes(app) {
       fileStream = Readable.from(fileStream).pipe(cipher);
     }
 
-    const cid = await app.cluster.add(fileStream);
-    const keyId = encryption ? await app.db.keys.store(req.user.tenant, keyMaterial, iv) : null;
+    // Safe JSON parse for meta field
+    let meta;
+    if (fields.meta) {
+      try {
+        meta = JSON.parse(fields.meta);
+      } catch (e) {
+        return reply.code(400).send({ error: 'invalid_meta_json', message: e.message });
+      }
+    }
 
     const pin = await app.db.pins.create({
-      tenant: req.user.tenant, cid,
+      tenant: req.user.tenant, cid: '', // cid will be set after upload
       name: fields.name,
       region: fields.region,
       replication: Number(fields.replication ?? 3),
-      encryption, keyId,
+      encryption, keyId: null,
       lifecycle: fields.lifecycle,
-      meta: fields.meta ? JSON.parse(fields.meta) : undefined,
+      meta,
       status: 'pinned', created: new Date(),
     });
+
+    const cid = await app.cluster.add(fileStream);
+    const keyId = encryption ? await app.db.keys.store(req.user.tenant, keyMaterial, iv) : null;
+
+    // Update the pin with the actual CID and keyId
+    await app.db.pins.update(pin.id, { cid, keyId });
+    pin.cid = cid;
+    pin.keyId = keyId;
+
     reply.code(201);
     return pin;
   });
@@ -78,6 +109,16 @@ export default async function uploadRoutes(app) {
         region: metadata.region,
       });
 
+      // Safe JSON parse for meta field
+      let meta;
+      if (metadata.meta) {
+        try {
+          meta = JSON.parse(metadata.meta);
+        } catch (e) {
+          app.log.error({ err: e, uploadId: id }, 'tus upload had invalid meta JSON');
+        }
+      }
+
       await app.db.pins.create({
         tenant: tenantId,
         cid,
@@ -87,7 +128,7 @@ export default async function uploadRoutes(app) {
         encryption,
         keyId,
         lifecycle: metadata.lifecycle,
-        meta: metadata.meta ? JSON.parse(metadata.meta) : undefined,
+        meta,
         size,
         status: 'pinned',
         created: new Date(),
