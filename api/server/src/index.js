@@ -77,7 +77,7 @@ await app.register(cors, {
 await app.register(rateLimit, {
   max: Number(process.env.RATE_LIMIT_MAX ?? 1000),
   timeWindow: '1 minute',
-  keyGenerator: (req) => {
+  keyGenerator: async (req) => {
     // Use tenant ID from authenticated user if available
     if (req.user?.tenant) {
       return `tenant:${req.user.tenant}`;
