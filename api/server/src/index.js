@@ -33,6 +33,11 @@ const app = Fastify({
   bodyLimit: 1024 * 1024 * 1024, // 1 GiB — larger uploads use tus
 });
 
+// Tell crawlers not to index API responses
+app.addHook('onSend', async (_req, reply) => {
+  reply.header('X-Robots-Tag', 'noindex, nofollow');
+});
+
 // Security headers with proper CSP
 await app.register(helmet, {
   contentSecurityPolicy: {

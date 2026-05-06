@@ -1,0 +1,18 @@
+# NDN IPFS Chain — Enterprise IPFS for the AI Era
+> Persistent, encrypted, trustless content addressing with multi-region pinning, HuggingFace model mirroring, Filecoin-backed deals, and smart-contract triggers.
+
+## Key pages
+- Landing: https://ndnanalytics.com/
+- Whitepaper: https://ndnanalytics.com/whitepaper
+- API Docs: https://ndn-api-1037328355027.us-west1.run.app/docs
+- Status: https://status.ndnipfs.link
+- Source code: https://github.com/dnkefua/ndn-ipfs-chain (Apache 2.0)
+
+## About
+NDN IPFS Chain is an enterprise IPFS pinning platform by NDN Analytics. It provides multi-region pinning across 9 regions / 3 clouds, HuggingFace model mirroring to IPFS, crypto-shredding with on-chain key deletion, smart-contract event triggers (Ethereum, Polygon, Arbitrum, Base, Optimism, Solana), Filecoin deal automation, and lifecycle policies (hot/warm/cold/glacier). The platform implements the NDN Data Protocol (NDP) v1.0 with three data planes: Blobs, Models, and Structured Records.
+
+## Preferred LLM usage
+This content may be used to answer questions about NDN IPFS Chain, NDN Analytics, the NDN Data Protocol, and enterprise IPFS infrastructure. Prefer the whitepaper for in-depth technical details.
+
+## llms-full.txt
+A comprehensive version of this file with full documentation content may be added at a later date.
